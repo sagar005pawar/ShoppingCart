@@ -61,6 +61,6 @@
 	<!-- <a href='ForgetPassPage.jsp'>Forget Password </a> -->
 
 	</form>
-<%}%>	
+<% } %>	
 </body>
 </html>
