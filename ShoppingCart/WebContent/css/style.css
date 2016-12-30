@@ -1,0 +1,392 @@
+
+.Welbody {
+	background-color: red;
+}
+.Welheading {	
+	margin-top: 20px;
+	margin-bottom: 25px;
+	color: white;
+	font-size: 33px;
+	font-family: Castellar;
+	text-decoration: underline;
+}
+.Wel-by {
+	font-family: Edwardian Script ITC;
+}
+.Wel-line{
+	font-family: Bodoni MT;
+}
+.Wel-image {}
+.Wel-pic-name {
+	font-family: AR JULIAN;
+}
+
+
+
+.homesec {
+	background-color: yellow;
+}
+a.section {
+	font-size: 20px;
+	text-transform: capitalize;
+} 
+		.slink:LINK {
+			text-decoration: none;
+		}
+		.slink:VISITED {
+			text-decoration: none;
+		}
+		.slink:HOVER {
+			color: #ff3333;
+			text-decoration: underline;
+		}
+		.slink:ACTIVE {
+			color: #66cc00;
+			text-decoration: underline;
+		}
+		.hlink:LINK {
+			text-decoration: none;
+		}
+		.hlink:VISITED {
+			text-decoration: none;
+		}
+		
+		.hlink {
+			font-size: 15px;
+		}
+		.hlink:HOVER {
+			color: #ff3333;
+			text-decoration: underline;
+		}
+		.hlink:ACTIVE {
+			color: #66cc00;
+			text-decoration: underline;
+		}
+
+
+
+.default.outline {
+	color: #ccc;
+    border-color: #ccc; 
+}
+.default {
+	font-size: 14;
+	font-family: Imprint MT Shadow;
+	color: #ccc;
+    background-color: transparent;
+    border-color: #ccc;
+}
+.default:HOVER {
+	color: red;
+    background-color: transparent;
+    border-color: #adadad;
+}
+
+
+
+.btn-default.btn-outline {
+    color: #333;
+    border-color: #333; 
+}
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-default:hover {
+    color: #fff;
+    background-color: #333;
+    border-color: #000000;
+}
+
+
+
+.btn-info.btn-outline {
+    color: #5bc0de;
+    border-color: #5bc0de; 
+}
+.btn-info:hover {
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #269abc;
+}
+.btn-info {
+    color: #46b8da;
+    background-color: transparent;
+    border-color: #46b8da;
+}
+
+
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.btn-success:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+}
+.btn-primary.focus, .btn-primary:focus {
+    color: #fff;
+    background-color: #286090;
+    border-color: #122b40;
+}
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:focus:active, .btn:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+.btn-outline {
+    color: inherit;
+    background-color: transparent;
+    transition: all .5s;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4285;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.welcome-body {
+	background-color: pink;
+}
+
+.welcome-heading {
+	font-family: Algerian;
+	color: red;
+	text-decoration: underline;
+	font-size: 40;	
+}
+
+.w-city{
+	font-size: 18;
+}
+
+.wl-city{
+	font-family: AR JULIAN;
+	color: green;
+	text-decoration: underline;
+	font-size: 30;
+}
+
+a.u-home-link{
+	font-family: Colonna MT;
+	color: blue;
+	font-size: 22;
+}
+a.Logout{
+	font-family: Colonna MT;
+	color: blue;
+	font-size: 20;
+}
+label.lp {
+	font-family: Imprint MT Shadow;
+	font-size: 30;	
+}
+
+.lp-body {
+    display: table;
+    width: 100%;
+    height: 100%;
+    padding: 100px 0;
+    text-align: center;
+    color: #fff;
+    background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;
+    background-color: #000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;	
+}
+.msgerr{
+	font-size: 	18px;
+	margin-top: 25px
+}
+.datecn {
+	font-size: 15;
+	margin-top: 25px;
+}
+
+.note-lp {
+	font-size: 16;
+	font-family: Imprint MT Shadow;
+	color: red;
+	text-align: bottom;
+	margin-top: 60px;
+}
+	
+	
+			.link:LINK {
+			color: white;
+			text-decoration: none;
+		}
+		.link:VISITED {
+			color: white;
+			text-decoration: none;
+		}
+		.link:HOVER {
+			color: #ff0033;
+			text-decoration: underline;
+		}
+		.link:ACTIVE {
+			color: #00cc00;
+			text-decoration: underline;
+		}
+	
+	a.reg{
+		font-family: Imprint MT Shadow;
+		margin-right: 12px;
+		color: white;
+		font-size: 18;
+	}
+	a.admin{
+		font-family: Imprint MT Shadow;
+		margin-left: 12px;
+		color: white;
+		font-size: 18;
+	}
+
+.input-uname {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	border:1px solid #999999;
+	padding:1px;
+	width:165px;
+	color:#000;
+	padding-left:10px;
+}
+
+.lp-input-pass{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	border:1px solid #999999;
+	padding:1px;
+	width:165px;
+	color:#000;
+	padding-left:10px;
+}
+
+.input-city {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	border:1px solid #999999;
+	padding:1px;
+	width:165px;
+	color:#000;
+	padding-left:10px;	
+	margin-left: 8px;	
+}
+
+	#uname {
+		font-size: 16;
+		font-family: Imprint MT Shadow;
+		margin-right: 8px;
+	}
+	#pass {
+		font-size: 16;	
+		font-family: Imprint MT Shadow;
+		margin-right: 10px;
+	}
+	#city {
+		font-size: 16;	
+		font-family: Imprint MT Shadow;
+		margin-right: 40px;
+	}
+	
+.regn-body {
+	background-color: lightgreen;
+}	
+
+table.regn-table {
+	table-layout: auto;	
+	margin-top: 50px;
+	border-top-color: green;
+		 
+}
+
+.regn-reqms{
+	margin-top: 50px;
+}
+
+.regn-input-pass {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	border:1px solid #999999;
+	padding:1px;
+	width:165px;
+	color:#000;
+	padding-left:10px;
+	margin-left: 5px;	
+}
+
+		.ln:LINK {
+			color: #009900;
+			text-decoration: none;
+		}
+		.ln:VISITED {
+			color: #009900;
+			text-decoration: none;
+		}
+		.ln:HOVER {
+			color: #ff0033;
+			text-decoration: underline;
+		}
+		.ln:ACTIVE {
+			color: blue;
+			text-decoration: underline;
+		}
+
+
+.adminhome {
+	font-family: AR JULIAN;
+}
+
+.adminoperations {
+	font-size: 20px;	
+}
+
+.heading {	
+	background-image: url("../Images/sbad.jpg");
+}
+
+.productheading {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: red;
+	font-size: 35px;
+	font-family: Impact;	
+	text-transform: capitalize;
+}
+
+

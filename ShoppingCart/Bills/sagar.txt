@@ -1,0 +1,11 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	2	*	434.0	=	 868.0	=>	Devlop
+	1	*	345.0	=	 345.0	=>	testing
+
+
+			TOTAL AMT is:=1213.0

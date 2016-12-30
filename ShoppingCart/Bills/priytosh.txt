@@ -1,0 +1,16 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	2	*	150.0	=	 300.0	=>	Bat
+	2	*	25.0	=	 50.0	=>	Good Day
+	2	*	250.0	=	 500.0	=>	Pants
+	4	*	10.0	=	 40.0	=>	Parle-G
+	1	*	12500.0	=	 12500.0	=>	samsung
+	1	*	200.0	=	 200.0	=>	Shirts
+	3	*	200.0	=	 600.0	=>	Stumps
+
+
+			TOTAL AMT is:=14190.0

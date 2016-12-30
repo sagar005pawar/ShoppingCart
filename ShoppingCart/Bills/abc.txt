@@ -1,0 +1,6 @@
+Item: QtN * Price = Amt
+
+
+
+
+TOTAL AMT is:=0.0

@@ -1,0 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Update-Item</title>
+</head>
+<body>
+<% 
+	HttpSession sess = request.getSession();
+
+	if(sess.isNew()) {
+		response.sendRedirect("SingleController?page=Logout");
+	} else {
+		String f1=request.getParameter("id");
+		String f2=request.getParameter("prname");
+		String f3=request.getParameter("type");
+		String f4=request.getParameter("qta");
+		String f5=request.getParameter("price");
+%>
+<center>
+	<% if(f1!=null && f2!=null) { %>
+	<form action="SingleController?page=ItemUpdating" method="post">
+	<br><h2><u>Product Updating</u></h2><br><br>
+	<table style=" text-align: center;">
+	<tr>
+		<th>Pr_ID</th>
+	    <th>Product Name</th>
+	    <th>Type/Section</th>
+		<th>Qty-Available</th>
+		<th>Price</th>
+	</tr>
+	<tr>
+		<td align="center"> <input type="number" align="middle" value=<%=f1%> disabled="disabled" required="required" />
+		<input type="hidden" name="a1" value=<%=f1%> required="required" /></td>
+		<td align="center"> <input type="text" name="a2" align="middle" value=<%=f2%> required="required" /></td>
+		<td align="center"> <input type="text" name="a3" align="middle" value=<%=f3%> required="required" /></td>
+		<td align="center"> <input type="number" name="a4" align="middle" value=<%=f4%> required="required" /></td>
+		<td align="center"> <input type="number" name="a5" min=1 align="middle" value=<%=f5%> required="required" /></td>
+		<td><input type="submit" name="btn1" value="Update Item" align="middle" /></td>
+	</tr>
+</table>
+</form>
+
+	<br><br><br>
+	<input type="button" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
+	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+	
+	<%} else { %>
+	
+	<form action="SingleController?page=ItemUpdating" method="post">
+	<br><h2><u>Product Updating</u></h2><br><br>
+	<table style=" text-align: center;">
+	<tr>
+		<th>Pr_ID</th>
+	    <th>Product Name</th>
+	    <th>Type/Section</th>
+		<th>Qty-Available</th>
+		<th>Price</th>
+	</tr>
+	<tr>
+		<td align="center"> <input type="number" name="a1" align="middle" required="required" /></td>
+		<td align="center"> <input type="text" name="a2" align="middle" required="required" /></td>
+		<td align="center"> <input type="text" name="a3" align="middle" required="required" /></td>
+		<td align="center"> <input type="number" name="a4" align="middle" required="required" /></td>
+		<td align="center"> <input type="number" name="a5" min=1 align="middle" required="required" /></td>
+		<td><input type="submit" name="btn1" value="Update Item" align="middle" /></td>
+		<td><input type="reset" name="btn1" value="Clear" align="middle" /></td>
+	</tr>	
+	
+</table>
+</form>
+
+	<br><br><br>
+	<input type="button" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
+	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+
+	<% } %>
+	
+	<%
+		String msg = null;
+		msg=request.getParameter("msg");
+		if(msg==null) {
+			
+		} else {
+	%>
+		<br><br><br><br><h3><%=msg%></h3>
+	<%	} 
+	} %>	
+
+</center>
+</body>
+</html>

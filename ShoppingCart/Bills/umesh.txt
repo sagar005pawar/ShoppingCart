@@ -1,0 +1,11 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	2	*	150.0	=	 300.0	=>	Books
+	1	*	10.0	=	 10.0	=>	Pens
+
+
+			TOTAL AMT is:=310.0

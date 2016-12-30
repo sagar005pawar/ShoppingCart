@@ -1,0 +1,9 @@
+Item: QtN * QtA = Amt
+
+
+moto: 3*10000.0= 30000.0
+samsung: 1*12000.0= 12000.0
+Shirts: 1*200.0= 200.0
+
+
+TOTAL AMT is:=42200.0

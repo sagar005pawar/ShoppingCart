@@ -1,0 +1,13 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	2	*	25.0	=	 50.0	=>	Good Day
+	4	*	10.0	=	 40.0	=>	Parle-G
+	2	*	200.0	=	 400.0	=>	Shirts
+	3	*	16999.0	=	 50997.0	=>	Sony
+
+
+			TOTAL AMT is:=51487.0
