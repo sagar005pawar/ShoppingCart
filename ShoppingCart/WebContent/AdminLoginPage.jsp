@@ -52,7 +52,6 @@
 		<td align="center"> <a href='ForgetPassPage.jsp' style="color: red"> Forget Password? </a></td>
 		<td align="center"> <a href='ForgetPassPage.jsp' > Administator </a> </td>
 		<td align="center"><a class="Logout" href="SingleController?page=Logout">Get-Back</a></td>
-
 	</tr>
 	
 	</table>
