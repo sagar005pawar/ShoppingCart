@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,21 +76,17 @@ public class SingleController extends HttpServlet {
 					String prname=request.getParameter("prname");
 					ArrayList<Shopping> a3= new ArrayList<Shopping>();
 					if((T.getTotal())!=0){
-						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
-						Shopping[] p = new Shopping[a2.size()];
-						for (int i = 0; i < a2.size(); i++) {
-							p[i] = new Shopping();
-							p[i] = a2.get(i);
-							if(prname.equals(p[i].getPrName())){
+						for (Shopping s2:(ArrayList<Shopping>) sess.getAttribute("shopping")) {
+							if(prname.equals(s2.getPrName())){
 								d1=new DAO();
-								boolean status=d1.ReplaceSingleItem(p[i]);
+								boolean status=d1.ReplaceSingleItem(s2);
 								if(status==true){
-									T.setTotal(T.getTotal()-p[i].getAmt());
+									T.setTotal(T.getTotal()-s2.getAmt());
 									sess.setAttribute("total", T);
-									System.out.println("Repalced Item= "+p[i].getPrName());
+									System.out.println("Repalced Item= "+s2.getPrName());
 								}								
 							} else {
-								a3.add(p[i]);
+								a3.add(s2);
 							}
 						}
 						sess.setAttribute("shopping", a3);
@@ -105,14 +106,10 @@ public class SingleController extends HttpServlet {
 				try {
 					Shopping T = (Shopping) sess.getAttribute("total");
 					if((T.getTotal())!=0){
-						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
-						Shopping[] p = new Shopping[a2.size()];
-						for (int i = 0; i < a2.size(); i++) {
-							p[i] = new Shopping();
-							p[i] = a2.get(i);
+						for (Shopping s1:(ArrayList<Shopping>) sess.getAttribute("shopping")) {
 							d1=new DAO();
-							boolean status=d1.ReplaceItems(p[i]);
-							if(status==true){System.out.println("Repalced Item= "+p[i].getPrName());}
+							boolean status=d1.ReplaceItems(s1);
+							if(status==true){System.out.println("Repalced Item= "+s1);}
 						}
 					}
 					
@@ -149,7 +146,8 @@ public class SingleController extends HttpServlet {
 				try {
 					for (i = 0; i < size; i++) {
 						System.out.println("qtn= "+request.getParameter("qtn[" + i + "]"));
-						if (request.getParameter("qtn[" + i + "]") != null && request.getParameter("qtn[" + i + "]") != "") {
+						if (request.getParameter("qtn[" + i + "]") != null 
+								&& request.getParameter("qtn[" + i + "]") != "") {
 							
 							int n = Integer.parseInt(request.getParameter("qtn[" + i + "]"));
 							int a = Integer.parseInt(request.getParameter("qta[" + i + "]"));
@@ -165,26 +163,19 @@ public class SingleController extends HttpServlet {
 							a2=new ArrayList<Shopping>();
 							d1=new DAO();
 							a2=d1.shoppingtable();
-							System.out.println(a2.get(0));
+							a2.forEach(System.out::println);;
 							sess.setAttribute("shopping", a2);						
 						}
 					}
 					response.sendRedirect("Pay.jsp");
 			
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NumberFormatException e) {
+				} catch (SQLException | NullPointerException | NumberFormatException ex) {
+					/*  Multiple Exceptions handled by single catch block from java 1.7  */
 					// TODO: handle exception
-					System.out.println(e+" sagar pawar");
+					System.out.println(ex + " sagar pawar");
 					response.sendRedirect("Wel.jsp");
 					//e.printStackTrace();
-				} catch (NullPointerException e) {
-				// TODO: handle exception
-					System.out.println(e+" sagar pawar");
-					response.sendRedirect("Wel.jsp");
-					//e.printStackTrace();			
-				}
+				} 
 				break;
 			}
 			
@@ -195,8 +186,15 @@ public class SingleController extends HttpServlet {
 				try {
 					a1 = new ArrayList<Products>();
 					d1=new DAO();
-					a1=d1.SectonItemsList(type);
+					//a1=d1.SectonItemsList(type);
+					a1=(ArrayList<Products>) d1.getProducts();
+					a1=(ArrayList<Products>) a1.stream()
+					  .filter(prt->prt.getType().equals(type))
+					  .collect(Collectors.toList());
+					Collections.sort(a1,(h1,h2)->h1.getPrName().compareToIgnoreCase(h2.getPrName()));
+					a1.forEach(System.out::println);					
 					sess.setAttribute("asi", a1);
+					System.out.println("get p");
 					response.sendRedirect("UserProducts.jsp?type="+type);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -210,10 +208,8 @@ public class SingleController extends HttpServlet {
 			case "DisplayProductSectionsUserHome":
 			{
 				try {	
-					a1 = new ArrayList<Products>();
-					d1= new DAO();
-					a1=d1.DPSections();
-					sess.setAttribute("sc", a1);
+					Set<String> s1=(new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet());
+					sess.setAttribute("sc", s1);
 					response.sendRedirect("UserHome.jsp");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -400,8 +396,7 @@ public class SingleController extends HttpServlet {
 					u1.setPassword(loginpass);
 					d1 = new DAO();	
 					u1 = d1.validateUser(u1);
-					if(u1!=null) {
-
+					if(u1.getUsername()!=null) {
 						double total=0.0;
 						Shopping T = new Shopping();	 
 						T.setTotal(total);
@@ -430,10 +425,7 @@ public class SingleController extends HttpServlet {
 				String password = request.getParameter("txt2");
 				String city=request.getParameter("txt3");
 			
-				u1 = new User();
-				u1.setUsername(name);
-				u1.setPassword(password);
-				u1.setCity(city);
+				u1 = new User(name, password, city);
 			
 				try {
 					d1 = new DAO();
@@ -460,12 +452,10 @@ public class SingleController extends HttpServlet {
 					if((T.getTotal())!=0){
 						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
 						Shopping[] p = new Shopping[a2.size()];
-						for (int i = 0; i < a2.size(); i++) {
-							p[i] = new Shopping();
-							p[i] = a2.get(i);
+						for (Shopping s1 : a2) {
 							d1=new DAO();
-							boolean status=d1.ReplaceItems(p[i]);
-							if(status==true){System.out.println("Repalced Item= "+p[i].getPrName());}
+							boolean status=d1.ReplaceItems(s1);
+							if(status==true){System.out.println("Repalced Item= "+s1);}
 						}
 					}
 					

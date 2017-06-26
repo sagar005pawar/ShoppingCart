@@ -5,8 +5,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.TransientObjectException;
 import controller.HibernateUtilities;
 import model.Products;
@@ -16,6 +20,8 @@ import model.User;
 public class DAO {
 
 	private Connection con = null;
+	private Session session = null;
+
 	ConnectionPoolManager ConnectionPoolManager;
 	public DAO() throws SQLException {									
 //		ConnectionPoolManager = new ConnectionPoolManager();
@@ -25,71 +31,103 @@ public class DAO {
 	
 	public void HibernateSQLclose() throws SQLException
 	{
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();		
-		HibernateUtilities.getsSessionFactory().close();
-		System.out.println("HibernateUtilities Closed...");
+		try {
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
+		}		
 	}	
 
 	public boolean ReplaceSingleItem(Shopping s1)
 	{
 		boolean b1=false;
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-
-		String queryString = "from Products where PrName = :prname and Type = :type";
-		  org.hibernate.Query query = session.createQuery(queryString);
-		  query.setString("prname", s1.getPrName());						  
-		  query.setString("type", s1.getType());						  
-		  Object queryResult = query.uniqueResult();
-		  Products p1 = (Products)queryResult;
-		  System.out.println(p1.getQA());
-		  p1.setQA(p1.getQA()+s1.getQN());
-		  System.out.println("new= "+p1.getQA());
-		  session.delete(s1);
-		  session.update(p1);
-		  b1=true;
-		session.getTransaction().commit();
-		session.close();
-		System.out.println("Replace Item..");
-		
+		session = HibernateUtilities.getsSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			String queryString = "from Products where PrName = :prname and Type = :type";
+			  org.hibernate.Query query = session.createQuery(queryString);
+			  query.setString("prname", s1.getPrName());						  
+			  query.setString("type", s1.getType());						  
+			  Object queryResult = query.uniqueResult();
+			  Products p1 = (Products)queryResult;
+			  System.out.println(p1.getQA());
+			  p1.setQA(p1.getQA()+s1.getQN());
+			  System.out.println("new= "+p1.getQA());
+			  session.delete(s1);
+			  session.update(p1);
+			  b1=true;
+			System.out.println("Replace Item..");
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				tx.commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
+		}		
 		return b1;
 	}
 	
 	public void ShoppingTruncate() throws SQLException
 	{
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-
-		org.hibernate.Query queryResult = session.createQuery("from Shopping");
-		 java.util.List allUsers = queryResult.list(); 
-		for (int i = 0; i < allUsers.size(); i++) {
-			   Shopping user = (Shopping) allUsers.get(i);
-			   session.delete(user);
+		try {
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+	
+			org.hibernate.Query queryResult = session.createQuery("from Shopping");
+			List<Shopping> allUsers = queryResult.list(); 
+			for (Shopping user : allUsers) {
+				   session.delete(user);
+			}
+			System.out.println("Truncate");
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
-		session.getTransaction().commit();
-		session.close();
-		System.out.println("Truncate");
+
 	}
 	
 	public ArrayList<Shopping> shoppingtable() throws SQLException
 	{
 		ArrayList<Shopping> a1 = new ArrayList<Shopping>();
 		
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-
-		org.hibernate.Query queryResult = session.createQuery("from Shopping");
-		java.util.List allUsers;
-		allUsers = queryResult.list(); 
-		for (int i = 0; i < allUsers.size(); i++) {
-			   Shopping user = (Shopping) allUsers.get(i);
-			   System.out.println(user.getPrName());
-			   a1.add(user);
+		try {
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+	
+			org.hibernate.Query queryResult = session.createQuery("from Shopping");
+			a1 = (ArrayList<Shopping>) queryResult.list(); 
+			System.out.println("Show Shopping");	
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
-		session.getTransaction().commit();
-		session.close();
-		System.out.println("Show Shopping");	
 		return a1;
 	}
 	
@@ -97,7 +135,7 @@ public class DAO {
 	public Shopping Commander(int n,int a,double p,String ft,String i,String u,double total) throws IOException {
 		
 		Shopping T = new Shopping();
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
+		session = HibernateUtilities.getsSessionFactory().openSession();
 		session.beginTransaction();
 		try {
 				if(n > 0) {
@@ -157,9 +195,6 @@ public class DAO {
 								  session.save(s1);
 								  System.out.println("Inserted Shop Item by QuerySyntaxException catch clause... \n" + e);
 							}									  
-							session.getTransaction().commit();
-							session.close();
-						
 					}else{
 //						Pw.println(i + ": " + n + " But now here available only this QtA ("+ a +")");
 					}
@@ -170,10 +205,16 @@ public class DAO {
 				}
 				T.setTotal(total);
 				return T;
-		}catch (Exception e) {
-		// TODO Auto-generated catch block
-			System.out.println("sagar pawar " + e);
-			e.printStackTrace();
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
 		return T;	
 	}	
@@ -185,7 +226,7 @@ public class DAO {
 		String status=null;
 		try {
 			Products p1= null;
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
+			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
 			org.hibernate.Query queryResult = session.createQuery("from Products where PrName = :prname and type = :type");
 			java.util.List allUsers;			  
@@ -223,21 +264,25 @@ public class DAO {
 				status="INSERT";
 				System.out.println(status);			
 			}
-			session.getTransaction().commit();
-			session.close();
-
-			return status;
 		} catch (Exception e) {
-			// TODO: handle exception
-			return status;
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
+		return status;
 	}
 
 	
 	public boolean ItemUpdating(String id,String prname,String type,String qta,String price) throws SQLException {
 		boolean status = false;
 		try {
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
+			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
 
 			Products p1= new Products();
@@ -249,22 +294,26 @@ public class DAO {
 			session.update(p1);
 			status=true;
 			System.out.println("Updated..");
-			session.getTransaction().commit();
-			session.close();
-		
-			return status;
-		} catch(Exception e) {
-			return status;	
-		}		
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
+		}
+		return status;
 	}
 
 	
 	public boolean ItemDeletion(String id) {
 		boolean status=false;
 		try {
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
-			session.beginTransaction();
-			
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();			
 			String queryString = "from Products where Id = :id";
 			  org.hibernate.Query query = session.createQuery(queryString);
 			  query.setString("id", id);
@@ -273,25 +322,27 @@ public class DAO {
 			  System.out.println(p1.getPrName());
 			  session.delete(p1);
 			  System.out.println("Deleted Item...");
-				status=true;
-
+			  status=true;
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
 				session.getTransaction().commit();
 				session.close();
-			  
-			return status;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return status;		
+				System.out.println("Session closed..");
+			}
 		}
+		return status;
 	}
 	
 	
 	public boolean SectionDeletion(String type) {
 		boolean status=false;
 		try {
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
+			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
-			
 			Query queryResult = session.createQuery("FROM Products WHERE Type = :type");
 			queryResult.setString("type", type);
 			java.util.List allPr;
@@ -301,18 +352,20 @@ public class DAO {
 				System.out.println(p1);
 				session.delete(p1);
 			}
-			status=true;
-			
+			status=true;			
 			System.out.println("Deleted Section...");
-
-			session.getTransaction().commit();
-			session.close();
-			
-			return status;
 		} catch (Exception e) {
-			// TODO: handle exception
-			return status;		
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
+		return status;
 	}
 
 	
@@ -320,47 +373,43 @@ public class DAO {
 	
 	public ArrayList<Products> DPSections() throws SQLException {
 		ArrayList<Products> a1 = new ArrayList<Products>();
-		
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-		org.hibernate.Query queryResult = session.createQuery("from Products group by type order by id");
-		java.util.List allUsers;
-		allUsers = queryResult.list(); 
-		for (int i = 0; i < allUsers.size(); i++) {
-			Products user = (Products) allUsers.get(i);
-			   System.out.println(user.getType());
-			   a1.add(user);
-		}
-		session.getTransaction().commit();
-		session.close();
-		
+		try {		
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+			a1.addAll((ArrayList<Products>)(session.createQuery("from Products group by type order by id")).list());
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
+		}		
 		return a1;
 	}
 
 	public boolean RShopItemUpdating(int id,String prname,String type,int qta,double price) throws SQLException {
 		boolean status = false;
 		try {
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
+			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
-
-			Products p1=new Products();
-			p1.setId(id);
-			p1.setPrName(prname);
-			p1.setQA(qta);
-			p1.setPrice(price);
-			p1.setType(type);
-			
+			Products p1=new Products(id, prname, qta, price, type);
 			session.update(p1);
-			status=true;			
-	
-			session.getTransaction().commit();
-			session.close();
-//			HibernateUtilities.getsSessionFactory().close();
+			status=true;				
 		} catch (Exception e) {
-			// TODO: handle exception
-			status = false;
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
-
 		return status;	
 	}
 
@@ -368,14 +417,10 @@ public class DAO {
 	public boolean ReplaceItems(Shopping s1) throws SQLException {
 		ArrayList<Products> a1 = new ArrayList<Products>(); 
 		boolean status = false;
-		a1=SectonItemsListfR(s1.getType());
-		Products[] p = new Products[a1.size()];
-		for (int i = 0; i < a1.size(); i++) {
-			if(a1.get(i)!=null) {
-				p[i] = new Products();
-				p[i] = a1.get(i);
-				if(s1.getPrName().equals(p[i].getPrName())){
-					status=RShopItemUpdating(p[i].getId(), s1.getPrName(), s1.getType(), p[i].getQA()+s1.getQN(), p[i].getPrice());
+		for (Products p:SectonItemsListfR(s1.getType())) {
+			if(p!=null) {
+				if(s1.getPrName().equals(p.getPrName())){
+					status=RShopItemUpdating(p.getId(), s1.getPrName(), s1.getType(), p.getQA()+s1.getQN(), p.getPrice());
 					return status;
 				}
 			}
@@ -386,36 +431,46 @@ public class DAO {
 	
 	public ArrayList<Products> SectonItemsListfR(String type) throws SQLException {
 		ArrayList<Products> a1 = new ArrayList<Products>(); 
-		
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-		org.hibernate.Query queryResult = session.createQuery("from Products where type = :type");
-		java.util.List allUsers;			  
-		queryResult.setString("type", type);
-		allUsers = queryResult.list(); 
-		for (int i = 0; i < allUsers.size(); i++) {
-			Products user = (Products) allUsers.get(i);
-			   a1.add(user);
+		try{
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+			org.hibernate.Query queryResult = session.createQuery("from Products where type = :type");
+			queryResult.setString("type", type);
+			a1 = (ArrayList<Products>) queryResult.list(); 			
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
-		session.getTransaction().commit();
-		session.close();
+		
 		return a1;
 	}	
 	
 	
 	public ArrayList<Products> SectonItemsList(String type) throws SQLException {
 		ArrayList<Products> a1 = new ArrayList<Products>(); 
-
-		Session session = HibernateUtilities.getsSessionFactory().openSession();
-		session.beginTransaction();
-		org.hibernate.Query queryResult = session.createQuery("from Products where type = :type");
-		java.util.List allUsers;			  
-		queryResult.setString("type", type);
-		allUsers = queryResult.list(); 
-		for (int i = 0; i < allUsers.size(); i++) {
-			Products user = (Products) allUsers.get(i);
-			   System.out.println(user.getPrName());
-			   a1.add(user);
+		try {
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+			org.hibernate.Query queryResult = session.createQuery("from Products where type = :type");
+			queryResult.setString("type", type);
+			a1 = (ArrayList<Products>) queryResult.list(); 			
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
 		return a1;
 	}	
@@ -423,48 +478,69 @@ public class DAO {
 
 	public User SingupDAO(User u1) {
 		try {
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
+			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
-			
-			session.save(u1);
-			
-			session.getTransaction().commit();
-			session.close();
-//			HibernateUtilities.getsSessionFactory().close();		
+			session.save(u1);			
 		} catch (Exception e) {
-			e.printStackTrace();
-			u1=null;
-		}finally {
-//			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("HibernateUtilities closed from SingupDAO function by finally");
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
 		return u1;
 	}
 	
 	public User  validateUser(User u1) {			
-
 		try {		
-			Session session = HibernateUtilities.getsSessionFactory().openSession();
-			session.beginTransaction();
-			
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();			
 			String queryString = "from User where username = :username and password = :pass";
 			org.hibernate.Query query = session.createQuery(queryString);
 			query.setString("username", u1.getUsername());
 			query.setString("pass", u1.getPassword());
 			Object queryResult = query.uniqueResult();
-			u1 = (User)queryResult;	
 			System.out.println("validateUser..");
-			session.getTransaction().commit();
-			session.close();
-//			HibernateUtilities.getsSessionFactory().close();
-			return u1;
+			return ((User)queryResult);
 		} catch (Exception e) {
-			e.printStackTrace();
-			u1=null;
-		}finally {
-//			HibernateUtilities.getsSessionFactory().close();
-//			System.out.println("HibernateUtilities closed from validate-user function by finally");
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
 		}
 		return u1;
 	}
+	
+	
+	public List<Products> getProducts() {
+		ArrayList<Products> a1 = new ArrayList<Products>();
+		try {
+			session = HibernateUtilities.getsSessionFactory().openSession();
+			session.beginTransaction();
+			org.hibernate.Query queryResult = session.createQuery("from Products");
+			a1 = (ArrayList<Products>) queryResult.list(); 
+		} catch (Exception e) {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+			System.err.println(e);
+		} finally {
+			if(session.isConnected()){
+				session.getTransaction().commit();
+				session.close();
+				System.out.println("Session closed..");
+			}
+		}
+		return a1;		
+	}
+	
+	
 }

@@ -21,6 +21,7 @@ public class Shopping{
 	public int getQN() {
 		return QN;
 	}
+	
 	public void setQN(int qN) {
 		QN = qN;
 	}
@@ -60,4 +61,28 @@ public class Shopping{
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
+	@Override
+	public String toString() {
+		return "Shopping [PrName=" + PrName + ", QN=" + QN + ", Type=" + Type + ", Price=" + Price + ", Amt=" + Amt + "]";
+	}
+	
+	public Shopping() {
+		super();
+		PrName = null;
+		QN = 0;
+		Type = null;
+		Price = 0.0d;
+		Amt = 0.0d;
+	}
+	
+	public Shopping(String prName, int qN, String type, double price, double amt) {
+		super();
+		PrName = prName;
+		QN = qN;
+		Type = type;
+		Price = price;
+		Amt = amt;
+	}
+
 }

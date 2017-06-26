@@ -59,5 +59,28 @@ public class Products {
 //	public void setTotal(double total) {
 //		this.total = total;
 //	}
+
+	public Products(int id, String prName, int qA, double price, String type) {
+		super();
+		Id = id;
+		PrName = prName;
+		QA = qA;
+		Price = price;
+		Type = type;
+	}
+
+	public Products() {
+		super();
+		Id = 0;
+		PrName = null;
+		QA = 0;
+		Price = 0.0d;
+		Type = null;
+	}
+	
+	@Override
+	public String toString() {
+		return "Products [Id=" + Id + ", PrName=" + PrName + ", QA=" + QA + ", Price=" + Price + ", Type=" + Type + "]";
+	}
 		
 }

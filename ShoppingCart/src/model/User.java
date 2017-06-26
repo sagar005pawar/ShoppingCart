@@ -24,4 +24,23 @@ public class User {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public User() {
+		super();
+		this.username = null;
+		this.password = null;
+		this.city = null;
+	}
+	
+	public User(String username, String password, String city) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.city = city;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", city=" + city + "]";
+	}
 }
