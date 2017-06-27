@@ -29,21 +29,40 @@ public class DAO {
 //		System.out.println("Connected to DB");
 	}
 	
+	public void closeSession(){
+		if(this.session.isConnected()){
+			this.session.getTransaction().commit();
+			this.session.close();
+			System.out.println("Session closed..");
+		}else{
+			System.out.println("Session already Disabled..");
+		}
+		
+	}
+	
+	public void exceptional(){
+		if(this.session.isConnected()){
+			this.session.getTransaction().commit();
+			this.session.close();
+			System.out.println("Session closed..");
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+		} else {
+			HibernateUtilities.getsSessionFactory().close();
+			System.out.println("Hibernate SessionFactory closed..");
+		}
+	}
+	
 	public void HibernateSQLclose() throws SQLException
 	{
 		try {
 			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
+			closeSession();
 		}		
 	}	
 
@@ -67,15 +86,10 @@ public class DAO {
 			  b1=true;
 			System.out.println("Replace Item..");
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				tx.commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
+			closeSession();
 		}		
 		return b1;
 	}
@@ -93,17 +107,11 @@ public class DAO {
 			}
 			System.out.println("Truncate");
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
-
+			closeSession();
+		}		
 	}
 	
 	public ArrayList<Shopping> shoppingtable() throws SQLException
@@ -118,16 +126,11 @@ public class DAO {
 			a1 = (ArrayList<Shopping>) queryResult.list(); 
 			System.out.println("Show Shopping");	
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return a1;
 	}
 	
@@ -206,16 +209,11 @@ public class DAO {
 				T.setTotal(total);
 				return T;
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return T;	
 	}	
 	
@@ -265,16 +263,11 @@ public class DAO {
 				System.out.println(status);			
 			}
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return status;
 	}
 
@@ -295,16 +288,11 @@ public class DAO {
 			status=true;
 			System.out.println("Updated..");
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return status;
 	}
 
@@ -324,16 +312,11 @@ public class DAO {
 			  System.out.println("Deleted Item...");
 			  status=true;
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return status;
 	}
 	
@@ -355,16 +338,11 @@ public class DAO {
 			status=true;			
 			System.out.println("Deleted Section...");
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return status;
 	}
 
@@ -378,15 +356,10 @@ public class DAO {
 			session.beginTransaction();
 			a1.addAll((ArrayList<Products>)(session.createQuery("from Products group by type order by id")).list());
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
+			closeSession();
 		}		
 		return a1;
 	}
@@ -400,16 +373,11 @@ public class DAO {
 			session.update(p1);
 			status=true;				
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return status;	
 	}
 
@@ -438,17 +406,11 @@ public class DAO {
 			queryResult.setString("type", type);
 			a1 = (ArrayList<Products>) queryResult.list(); 			
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
-		
+			closeSession();
+		}				
 		return a1;
 	}	
 	
@@ -462,16 +424,11 @@ public class DAO {
 			queryResult.setString("type", type);
 			a1 = (ArrayList<Products>) queryResult.list(); 			
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return a1;
 	}	
 	
@@ -482,16 +439,11 @@ public class DAO {
 			session.beginTransaction();
 			session.save(u1);			
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return u1;
 	}
 	
@@ -507,16 +459,11 @@ public class DAO {
 			System.out.println("validateUser..");
 			return ((User)queryResult);
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return u1;
 	}
 	
@@ -529,16 +476,11 @@ public class DAO {
 			org.hibernate.Query queryResult = session.createQuery("from Products");
 			a1 = (ArrayList<Products>) queryResult.list(); 
 		} catch (Exception e) {
-			HibernateUtilities.getsSessionFactory().close();
-			System.out.println("Hibernate SessionFactory closed..");
+			exceptional();
 			System.err.println(e);
 		} finally {
-			if(session.isConnected()){
-				session.getTransaction().commit();
-				session.close();
-				System.out.println("Session closed..");
-			}
-		}
+			closeSession();
+		}		
 		return a1;		
 	}
 	

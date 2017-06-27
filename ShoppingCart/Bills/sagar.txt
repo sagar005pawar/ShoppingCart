@@ -4,8 +4,7 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	2	*	434.0	=	 868.0	=>	Devlop
-	1	*	345.0	=	 345.0	=>	testing
+	1	*	10.0	=	 10.0	=>	Parle-G
 
 
-			TOTAL AMT is:=1213.0
+			TOTAL AMT is:=10.0

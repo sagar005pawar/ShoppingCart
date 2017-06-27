@@ -80,7 +80,7 @@ public class SingleController extends HttpServlet {
 							if(prname.equals(s2.getPrName())){
 								d1=new DAO();
 								boolean status=d1.ReplaceSingleItem(s2);
-								if(status==true){
+								if(status){
 									T.setTotal(T.getTotal()-s2.getAmt());
 									sess.setAttribute("total", T);
 									System.out.println("Repalced Item= "+s2.getPrName());
@@ -230,8 +230,7 @@ public class SingleController extends HttpServlet {
 				System.out.println("id= "+id+"\t"+"prname= "+prname+"\t"+"type= "+type+"\t"+"qta= "+qta+"\t"+"price= "+price);
 				try {
 					d1 = new DAO();
-					boolean status = d1.ItemUpdating(id,prname,type,qta,price);
-					if(status == true) {
+					if(d1.ItemUpdating(id,prname,type,qta,price)) {
 						System.out.println("Updated Product");
 						response.sendRedirect("UpdateItem.jsp?msg=Updated Product= "+prname);
 					}else{
@@ -252,8 +251,7 @@ public class SingleController extends HttpServlet {
 					String id = request.getParameter("a1");
 					try {
 						d1 = new DAO();
-						boolean status = d1.ItemDeletion(id);
-						if(status == true) {
+						if(d1.ItemDeletion(id)) {
 							System.out.println("Deleted Product");
 							response.sendRedirect("DeleteItem.jsp?msg=Deleted Product ID= "+id);
 						}else{
@@ -274,8 +272,7 @@ public class SingleController extends HttpServlet {
 				String type = request.getParameter("a2");
 				try {
 					d1 = new DAO();
-					boolean status = d1.SectionDeletion(type);
-					if(status == true) {
+					if(d1.SectionDeletion(type)) {
 						System.out.println("Deleted Section");
 						response.sendRedirect("DeleteItem.jsp?msg=Deleted Section= "+type);
 					}else{
@@ -368,7 +365,7 @@ public class SingleController extends HttpServlet {
 				try {
 					d1 = new DAO();
 					u1 = d1.validateUser(u1);
-					if(u1!=null) {
+					if(u1.getUsername()!=null) {
 						System.out.println("AJAX-if");
 						
 //						response.sendRedirect("Login.jsp?msg=Validate User AJAX");
@@ -498,7 +495,7 @@ public class SingleController extends HttpServlet {
 			{
 				try {				
 					User u2 = (User) sess.getAttribute("u1");
-			   		File Fb = new File("C:\\New folder\\Practice Section\\Advanced Java\\ShoppingCart\\Bills\\" + u2.getUsername() + ".txt");
+			   		File Fb = new File("C:\\Users\\sagar\\git\\ShoppingCart\\ShoppingCart\\Bills\\" + u2.getUsername() + ".txt");
 					FileWriter Fwb = new FileWriter(Fb);			   		
 //					FileWriter Fwb = new FileWriter(Fb,true);
 					BufferedWriter Bwb = new BufferedWriter(Fwb);
