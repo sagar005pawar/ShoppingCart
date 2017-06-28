@@ -17,19 +17,13 @@
 	} else {
 		ArrayList<Products> a1 = new ArrayList<Products>();
 		a1 = (ArrayList<Products>) sess.getAttribute("asi");
-		Products[] p = new Products[a1.size()];
-
-		for (int i = 0; i < a1.size(); i++) {
-			p[i] = new Products();
-			p[i] = a1.get(i);
-		}
 %>
 <center>
 	<div class="productheading">
-		<%=request.getParameter("type")%> Items
+		<%=a1.get(1).getType() %> Items
 	</div>
 	<form action="SingleController?page=Commander" method="post">
-	<table frame="hsides" style="width: 70%;">
+	<table frame="hsides" style="width: 80%;">
 
 		<tr style="text-align:center; font-size: 19px; text-transform: capitalize;">
 			<th><u>Product-ID</u></th>
@@ -37,18 +31,23 @@
 			<th><u>Quantity-Available</u></th>
 			<th><u>Price(per-Qty.)</u></th>
 			<th><u>Editing</u></th>
+			<th><u>Remove</u></th>			
 		</tr>		
 		<tr></tr><tr></tr>	
-<%		for (int i = 0; i < a1.size(); i++) {
+<%		for (Products p : a1) {
 %>		
 		<tr style="text-align:center; font-size: 18px; text-transform: capitalize;">
-			<td><%=p[i].getId()%></td>
-			<td><%=p[i].getPrName()%></td>
-			<td><%=p[i].getQA()%></td>
-			<td><%=p[i].getPrice()%></td>
-			<td><a class="section slink" href="UpdateItem.jsp?id=<%=p[i].getId()%>
-			&prname=<%=p[i].getPrName()%>&type=<%=request.getParameter("type")%>&qta=<%=p[i].getQA()%>
-			&price=<%=p[i].getPrice()%>" target="_parent" ><%=p[i].getPrName()%></a></td>
+			<td><%=p.getId()%></td>
+			<td><%=p.getPrName()%></td>
+			<td><%=p.getQA()%></td>
+			<td><%=p.getPrice()%></td>
+			<td><a class="section slink" href="UpdateItem.jsp?id=<%=p.getId()%>
+			&prname=<%=p.getPrName()%>&type=<%=p.getType() %>&qta=<%=p.getQA()%>
+			&price=<%=p.getPrice()%>" target="_parent" ><%=p.getPrName()%></a></td>
+			
+			<td><a class="section slink" href="SingleController?page=LinkItemDeletion&id=<%=p.getId()%>
+			&prname=<%=p.getPrName()%>&type=<%=p.getType() %>&qta=<%=p.getQA()%>
+			&price=<%=p.getPrice()%>" target="_parent" ><%=p.getPrName()%></a></td>
 		</tr>
 <%	} 
 %>
@@ -56,8 +55,13 @@
 </form>
 	
 <form action="AdminHomePage.jsp" target="_parent">	
-<h4><input class="btn btn-success" type="submit" name="btn3" value="Admin Home" align="middle" /></h4>
+	<h4><input class="btn btn-success" type="submit" name="btn3" value="Admin Home" align="middle" /></h4>
 </form>
+
+<form action="SingleController?page=LinkSectionDeletion&type=<%=a1.get(1).getType() %>" method="post" target="_parent">
+	<h4><input class="btn btn-danger" type="submit" name="btn3" value="<%=a1.get(1).getType() %> Section Delete" align="middle" /></h4>
+</form>
+
 </center>
 <%	} 
 %>

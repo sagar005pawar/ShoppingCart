@@ -1,16 +1,22 @@
 package model;
 
-public class Products {
-	int Id;	
-	String PrName;
-	int QA;
-	double Price;
-	String Type;
-	
-	int QN;
-	double Amt;	
-//	double total;
+import java.io.Serializable;
 
+public class Products implements Cloneable, Serializable, Comparable<Products> {
+	private int Id;	
+	private String PrName;
+	private int QA;
+	private double Price;
+	private String Type;
+	
+	private int QN;
+	private double Amt;	
+//	private double total;
+
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
+	
 	public int getId() {
 		return Id;
 	}
@@ -81,6 +87,17 @@ public class Products {
 	@Override
 	public String toString() {
 		return "Products [Id=" + Id + ", PrName=" + PrName + ", QA=" + QA + ", Price=" + Price + ", Type=" + Type + "]";
+	}
+
+	@Override
+	public int compareTo(Products p) {
+		if (this.Id > p.Id) {
+			return 1;
+		} else if(this.Id < p.Id){
+			return -1;
+		}else {
+			return 0;
+		}
 	}
 		
 }

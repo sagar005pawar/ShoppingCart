@@ -15,14 +15,14 @@
 	if(sess.isNew()) {
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
-		Set<String> a1 = new TreeSet<String>();
-		a1.addAll((Set<String>) sess.getAttribute("sc"));
+		Set<String> s1 = new TreeSet<String>();
+		s1.addAll((Set<String>) sess.getAttribute("sc"));
 %>
 <center>
 <h1>Shop SECTIOS</h1><br />
 	You can choice any section here for it should take, What are the requirments of us...?<br>
 
-<%	for(String str : a1) {%>
+<%	for(String str : s1) {%>
 		<h3><a class="section slink" href="SingleController?page=SectionItemsListToUser&type=<%=str%>" target="frame3"><%=str%></a></h3>
 <%	} 
 %>

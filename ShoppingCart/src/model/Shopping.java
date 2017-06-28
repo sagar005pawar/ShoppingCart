@@ -1,16 +1,23 @@
 package model;
 
-public class Shopping{
+import java.io.Serializable;
+
+public class Shopping implements Serializable, Cloneable
+{
 	
-	String PrName;
-	int QN;
-	String Type;
-	double Price;
-	double Amt;
+	private String PrName;
+	private int QN;
+	private String Type;
+	private double Price;
+	private double Amt;
 	
-	int Id;	
-	int QA;
-	double total;
+	private int Id;	
+	private int QA;
+	private double total;
+	
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
 	
 	public String getPrName() {
 		return PrName;

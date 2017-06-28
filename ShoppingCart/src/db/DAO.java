@@ -21,8 +21,9 @@ public class DAO {
 
 	private Connection con = null;
 	private Session session = null;
+	private ConnectionPoolManager ConnectionPoolManager;
+	
 
-	ConnectionPoolManager ConnectionPoolManager;
 	public DAO() throws SQLException {									
 //		ConnectionPoolManager = new ConnectionPoolManager();
 //		con = ConnectionPoolManager.getConnectionFromPool();
@@ -484,5 +485,29 @@ public class DAO {
 		return a1;		
 	}
 	
+	public Connection getCon() {
+		return con;
+	}
+
+	public void setCon(Connection con) {
+		this.con = con;
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
+	public ConnectionPoolManager getConnectionPoolManager() {
+		return ConnectionPoolManager;
+	}
+
+	public void setConnectionPoolManager(ConnectionPoolManager connectionPoolManager) {
+		ConnectionPoolManager = connectionPoolManager;
+	}
+
 	
 }

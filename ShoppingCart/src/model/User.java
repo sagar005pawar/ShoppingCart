@@ -1,11 +1,17 @@
 package model;
 
-public class User {
+import java.io.Serializable;
 
-	String username;
-	String password;
-	String city;
+public class User implements Serializable, Cloneable {
+
+	private String username;
+	private String password;
+	private String city;
 	
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
+
 	public String getUsername() {
 		return username;
 	}

@@ -60,7 +60,7 @@ public class SingleController extends HttpServlet {
 			System.out.println("Hits= "+ (++hitCount));
 			
 			String page = request.getParameter("page");
-			System.out.println("page= "+page);
+			System.out.println("page= " + page);
 			DAO d1 = null;
 			ArrayList<Products> a1;			
 			ArrayList<Shopping> a2;			
@@ -141,10 +141,8 @@ public class SingleController extends HttpServlet {
 				String u = u1.getUsername();
 		   		Shopping T = (Shopping) sess.getAttribute("total");
 				int i;
-				a1 = (ArrayList<Products>) sess.getAttribute("asi");
-				int size=a1.size();
 				try {
-					for (i = 0; i < size; i++) {
+					for (i = 0; i < (((ArrayList<Products>) sess.getAttribute("asi")).size()); i++) {
 						System.out.println("qtn= "+request.getParameter("qtn[" + i + "]"));
 						if (request.getParameter("qtn[" + i + "]") != null 
 								&& request.getParameter("qtn[" + i + "]") != "") {
@@ -265,7 +263,48 @@ public class SingleController extends HttpServlet {
 					}
 					break;
 			}			
+
+			case "LinkItemDeletion":
+			{	
+					String id = request.getParameter("id");
+					try {
+						d1 = new DAO();
+						if(d1.ItemDeletion(id)) {
+							System.out.println("Deleted Product");
+							response.sendRedirect("Homepage.jsp?msg=Deleted Product ID= "+id);
+						}else{
+							System.out.println("Deletion Failure");
+							response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
+						}												
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						System.out.println("Deletion Failure");
+						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
+					}
+					break;
+			}			
 			
+			case "LinkSectionDeletion":
+			{	
+				String type = request.getParameter("type");
+				try {
+					d1 = new DAO();
+					if(d1.SectionDeletion(type)) {
+						System.out.println("Deleted Section");
+						response.sendRedirect("Homepage.jsp?msg=Deleted Section= "+type);
+					}else{
+						System.out.println("Deletion Failure");
+						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
+					}						
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					System.out.println("Deletion Failure");
+					response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
+				}
+				break;
+			}
+
+
 			
 			case "SectionDeletion":
 			{	
@@ -319,16 +358,15 @@ public class SingleController extends HttpServlet {
 			
 			case "SectionItemsList":
 			{
-				String type = request.getParameter("type");
 				try {
 					a1 = new ArrayList<Products>();
 					d1 = new DAO();
-					
-					a1 = d1.SectonItemsList(type);
-					
+					a1=(ArrayList<Products>) d1.getProducts();
+					a1=(ArrayList<Products>) a1.stream().filter(prt->prt.getType().equals(request.getParameter("type"))).collect(Collectors.toList());
+					Collections.sort(a1);
+					a1.forEach(System.out::println);					
 					sess.setAttribute("asi", a1);
-					response.sendRedirect("Products.jsp?type="+type);
-				
+					response.sendRedirect("Products.jsp?type="+request.getParameter("type"));				
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					System.out.println("SQLException at Home for sections= "+ e1);
@@ -341,11 +379,8 @@ public class SingleController extends HttpServlet {
 			case "DisplayProductSections":
 			{
 				try {	
-			
-					a1 = new ArrayList<Products>();
-					d1 = new DAO();
-					a1 = d1.DPSections();
-					sess.setAttribute("sc", a1);
+					Set<String> s1=(new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet());
+					sess.setAttribute("sc", s1);
 					response.sendRedirect("Home.jsp");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
