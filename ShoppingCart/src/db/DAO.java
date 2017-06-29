@@ -438,7 +438,7 @@ public class DAO {
 		try {
 			session = HibernateUtilities.getsSessionFactory().openSession();
 			session.beginTransaction();
-			session.save(u1);			
+			session.saveOrUpdate(u1);;			
 		} catch (Exception e) {
 			exceptional();
 			System.err.println(e);

@@ -461,7 +461,7 @@ public class SingleController extends HttpServlet {
 			
 				try {
 					d1 = new DAO();
-					if(u1!=null) {
+					if(u1.getUsername()!=null) {
 						u1=d1.SingupDAO(u1);
 						RequestDispatcher re=request.getRequestDispatcher("Login.jsp");
 						re.forward(request, response);

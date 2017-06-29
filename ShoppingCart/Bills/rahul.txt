@@ -1,0 +1,11 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	2	*	25.0	=	 50.0	=>	Good Day
+	4	*	10.0	=	 40.0	=>	Parle-G
+
+
+			TOTAL AMT is:=90.0
