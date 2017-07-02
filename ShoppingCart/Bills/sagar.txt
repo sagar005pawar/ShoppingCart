@@ -4,7 +4,7 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	1	*	10.0	=	 10.0	=>	Parle-G
+	1	*	10000.0	=	 10000.0	=>	moto
 
 
-			TOTAL AMT is:=10.0
+			TOTAL AMT is:=10000.0

@@ -2,12 +2,15 @@ package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -30,15 +33,22 @@ import model.User;
 @WebServlet("/SingleController")
 public class SingleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
 	private int hitCount; 
-     public void init() 
+	private Properties prop;
+    
+	public void init() 
      { 
-     // Reset hit counter.
-     hitCount = 0;
+	     // Reset hit counter.
+	     hitCount = 0;
+	     try {
+	  		this.prop = new Properties();
+	  		InputStream in = new FileInputStream("C:\\Users\\sagar\\git\\ShoppingCart\\ShoppingCart\\ShoppingCart.properties");
+	  		this.prop.load(in);
+	  		in.close();
+	 	} catch (Exception e) {
+	 		// TODO: handle exception
+	 	}
      } 
      
 
@@ -52,8 +62,9 @@ public class SingleController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		HttpSession sess = request.getSession();
-
+		
 		if(sess.isNew()) {
 			response.sendRedirect("SingleController?page=Logout");
 		}else{
@@ -494,7 +505,7 @@ public class SingleController extends HttpServlet {
 					d1=new DAO();
 					d1.ShoppingTruncate();
 
-//					d1.HibernateSQLclose();;
+					d1.HibernateSQLclose();
 					
 					sess=request.getSession();
 					sess.invalidate();
@@ -508,7 +519,7 @@ public class SingleController extends HttpServlet {
 						d1=new DAO();
 						d1.ShoppingTruncate();
 
-//						d1.HibernateSQLclose();;
+						d1.HibernateSQLclose();;
 
 						sess=request.getSession();
 						sess.invalidate();
@@ -530,7 +541,7 @@ public class SingleController extends HttpServlet {
 			{
 				try {				
 					User u2 = (User) sess.getAttribute("u1");
-			   		File Fb = new File("C:\\Users\\sagar\\git\\ShoppingCart\\ShoppingCart\\Bills\\" + u2.getUsername() + ".txt");
+			   		File Fb = new File(this.prop.getProperty("Bill.File.Location") + File.separator + u2.getUsername() + ".txt");
 					FileWriter Fwb = new FileWriter(Fb);			   		
 //					FileWriter Fwb = new FileWriter(Fb,true);
 					BufferedWriter Bwb = new BufferedWriter(Fwb);
@@ -544,15 +555,10 @@ public class SingleController extends HttpServlet {
 						Pwb.println("\t\t\tTOTAL AMT is:=" + T.getTotal());
 					} else {
 						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
-						Shopping[] p = new Shopping[a2.size()];
-						for (int i = 0; i < a2.size(); i++) {
-							p[i] = new Shopping();
-							p[i] = a2.get(i);
-						}
 						Pwb.println("\n\t\t\t\tShopping-Cart\n\n");
 						Pwb.println("\tQtN\t*\tPrice\t=\tAmount\t=>\tItem\n");						
-						for (int i = 0; i < a2.size(); i++) {
-							Pwb.println("\t"+p[i].getQN() + "\t*\t" + p[i].getPrice() + "\t=\t " + p[i].getAmt() +"\t=>\t"+p[i].getPrName());
+						for (Shopping s: a2) {
+							Pwb.println("\t"+s.getQN() + "\t*\t" + s.getPrice() + "\t=\t " + s.getAmt() +"\t=>\t"+s.getPrName());
 						}
 						Pwb.println("\n\n\t\t\tTOTAL AMT is:=" + T.getTotal());						
 					}
@@ -561,7 +567,7 @@ public class SingleController extends HttpServlet {
 					d1=new DAO();
 					d1.ShoppingTruncate();
 
-//					d1.HibernateSQLclose();;
+					d1.HibernateSQLclose();;
 
 					sess=request.getSession();
 					sess.invalidate();
