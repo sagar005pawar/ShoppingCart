@@ -27,9 +27,6 @@ import model.Products;
 import model.Shopping;
 import model.User;
 
-/**
- * Servlet implementation class SingleController
- */
 @WebServlet("/SingleController")
 public class SingleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
