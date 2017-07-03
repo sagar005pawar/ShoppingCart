@@ -436,7 +436,7 @@ public class SingleController extends HttpServlet {
 					u1.setPassword(loginpass);
 					d1 = new DAO();	
 					u1 = d1.validateUser(u1);
-					if(u1.getUsername()!=null) {
+					if(u1!=null) {
 						double total=0.0;
 						Shopping T = new Shopping();	 
 						T.setTotal(total);

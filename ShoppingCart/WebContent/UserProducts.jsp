@@ -1,16 +1,14 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="model.Shopping"%>
-<%@page import="model.Products"%>
+<%@page import="java.util.*"%>
+<%@page import="model.*"%>
 <%@ page errorPage="error.jsp" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>User Products</title>
-  <link href="css/style.css" rel='stylesheet' type='text/css' />
-	
+	<jsp:include page="links.jsp" />
 </head>
-<body>
+<body class="container" ng-app="myApp" ng-controller="uProducts">
 <% 
 	HttpSession sess = request.getSession();
 
@@ -27,26 +25,25 @@
 		}
 %>
 <center>
-	
 	<div class="productheading">
 		<%=type %> Items
 	</div>
 	<form action="SingleController?page=LatestCommander" method="post">
 
-	<table frame="hsides" style="width: 60%;">
+	<table frame="hsides" style="width: 75%; margin-bottom: 35px;">
 <%		for (int i = 0; i < a1.size(); i++) {
 %>		
-	<tr style="text-align: center; text-transform: capitalize;">
+	<tr style="text-align: center; text-transform: capitalize;font-family: Poor Richard" >
 		<th><h3><%=p[i].getPrName()%> :
 		<input type="hidden" name="itname[<%=i%>]" value="<%=p[i].getPrName() %>" />
 		<input type="hidden" name="scnm[<%=i%>]" value="<%=type %>" />
 		</h3></th>
-		
-		<td>Available:<strong> <label style="color: blue;"> <%=p[i].getQA()%></label></strong>
+			
+		<td>Available:<strong> <label style="color: blue; font-size: 20px;"><%=p[i].getQA() %></label></strong>
 		<input type="hidden" style="color: blue;" size="5" name="qta[<%=i%>]" value="<%=p[i].getQA()%>"></td>
 		<td>Quantity Selected:<input type="number" name="qtn[<%=i%>]" min=1 max=<%=p[i].getQA()%> size="5" /></td>
-		<td>Price: <strong><label style="color: green;"> <%=p[i].getPrice()%></label></strong>
-		<input type="hidden" style="color: green;" name="itp[<%=i%>]" size="5" value="<%=p[i].getPrice()%>"></td>
+		<td>Price: <strong><label style="font-size: 20px;color: green;"> <%=p[i].getPrice()%></label></strong>
+		<input type="hidden" style=" color: green;" name="itp[<%=i%>]" size="5" ng-model="price" value="<%=p[i].getPrice()%>"></td>
 	</tr>
 <%	} 
 %>
@@ -56,5 +53,6 @@
 </center>
 <%	} 
 %>
+
 </body>
 </html>

@@ -4,7 +4,9 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	1	*	10000.0	=	 10000.0	=>	moto
+	5	*	150.0	=	 750.0	=>	Books
+	3	*	200.0	=	 600.0	=>	Drafter
+	7	*	10.0	=	 70.0	=>	Pens
 
 
-			TOTAL AMT is:=10000.0
+			TOTAL AMT is:=1420.0

@@ -9,47 +9,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>PAY-process</title>
-  <link href="css/style.css" rel='stylesheet' type='text/css' />
-
+	<jsp:include page="links.jsp" />
 </head>
-<body bgcolor="#FF52F5">
+<body class="container payBack">
 <% HttpSession sess = request.getSession();
 	if(sess.isNew()) {
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
+		Shopping T=(Shopping) sess.getAttribute("total");
+
 %>
 <center><br>
-	<% 	 	
-		Shopping T=(Shopping) sess.getAttribute("total");
-		out.println("<h2><u>Total AMT is:=</u> "+T.getTotal()+"</h2>");
-	%>
+		<label class="payHeading"><u>Total AMT is:=</u><%=T.getTotal() %></label>
 	<br>
 	<%   	
 		if((T.getTotal())==0){
 			out.println("<h4>Not Purchased any thing (0:-Item purchase) </h4>");
 		} else {		
 			ArrayList<Shopping> a1=(ArrayList<Shopping>) sess.getAttribute("shopping");
-			Shopping[] p = new Shopping[a1.size()];
-			for (int i = 0; i < a1.size(); i++) {
-				p[i] = new Shopping();
-				p[i] = a1.get(i);	
-			}
 	%>
-	<table style="width: 60%;">
-		<tr style="text-align:center; font-size: 19px; text-transform: capitalize;">
+	<table class="payTable">
+		<tr style="font-size: 19px;">
 			<th><u>Purchase</u></th>
 			<th><u>Quantity</u></th>
 			<th><u>Price</u></th>
 			<th><u>Amount</u></th>
 		</tr>		
 		<tr></tr><tr></tr>	
-<%		for (int i = 0; i < a1.size(); i++) { %>		
-		<tr style="text-align:center; font-size: 18px; text-transform: capitalize;">
-			<td><%=p[i].getPrName()%></td>
-			<td><%=p[i].getQN()%></td>
-			<td><%=p[i].getPrice()%></td>
-			<td><%=p[i].getAmt()%></td>
-			<td><a href="SingleController?page=removeItem&prname=<%=p[i].getPrName() %>" > Remove </a></td>
+<%		for (Shopping p:a1) { %>		
+		<tr style="font-size: 17px;">
+			<td><%=p.getPrName()%></td>
+			<td><%=p.getQN()%></td>
+			<td><%=p.getPrice()%></td>
+			<td><%=p.getAmt()%></td>
+			<td><a href="SingleController?page=removeItem&prname=<%=p.getPrName() %>" > Remove </a></td>
 		</tr>
 <%} %>
 	</table>
