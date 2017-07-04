@@ -1,24 +1,15 @@
-<%@page import="model.User" %>
-<%@page import="model.Shopping" %>
-<%@page import="java.io.File" %>
-<%@page import="java.io.FileWriter" %>
-<%@page import="java.io.BufferedWriter" %>
-<%@page import="java.io.PrintWriter" %>
-<%@page import="java.io.File" %>
-<%@page import="java.io.FileReader" %>
-<%@page import="model.Shopping" %>
-<%@page import="java.io.BufferedReader" %>
-<%@page import="java.util.ArrayList" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="model.*" %>
+<%@page import="java.io.*" %>
+<%@page import="java.util.*" %>
+<%@ page errorPage="error.jsp" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Bill</title>
-  <link href="css/style.css" rel='stylesheet' type='text/css' />
-
+	<jsp:include page="links.jsp" />
 </head>
-<body>
+<body class="container">
 <% 
 	HttpSession sess = request.getSession();
 
@@ -45,9 +36,9 @@
 				p[i] = a1.get(i);
 			}		
 	%>		
-		<table style="width: 55%;">
+		<table style="width: 55%; font-family: Imprint MT Shadow; text-transform: capitalize;text-align:center;">
 
-		<tr style="text-align:center; font-size: 15px;">
+		<tr style="font-size: 17px;">
 			<th><u>Purchase</u></th>
 			<th><u>Quantity</u></th>
 			<th><u>Price</u></th>
@@ -56,7 +47,7 @@
 		<tr></tr><tr></tr>	
 <%		for (int i = 0; i < a1.size(); i++) {
 %>		
-		<tr style="text-align:center; text-transform: capitalize; font-size: 15px;">
+		<tr style="font-size: 15px;">
 			<td><%=p[i].getPrName()%></td>
 			<td><%=p[i].getQN()%></td>
 			<td><%=p[i].getPrice()%></td>
@@ -66,10 +57,8 @@
 	</table>		
 	<% 	} %>
  
-<br />  <h5>===================================</h5>
-<% 	 	
-			out.println("<h3><u>TOTAL AMT is</u>:= " + T.getTotal() + "</h3>");		
-%>
+<br />  <h5>===================================</h5> 	 	
+		<h3 style="font-family: Imprint MT Shadow;"><u>TOTAL AMT is</u>:= <%=T.getTotal() %></h3>
         <h5>===================================</h5>
 	<%if(T.getTotal()!=0.0){ %>
         <form action="SingleController?page=Print-Bill" method="post" target="_parent">

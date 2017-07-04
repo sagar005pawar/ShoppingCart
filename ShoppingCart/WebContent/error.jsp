@@ -4,9 +4,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Error-Page</title>
+	<jsp:include page="links.jsp" />
 </head>
-<body>
-<%	out.println("Exception:- "+exception); 
+<body class="container">
+<%	
+out.println("Exception:- "+exception); 
   	System.out.println("Exception:- "+exception);
 %>
 </body>

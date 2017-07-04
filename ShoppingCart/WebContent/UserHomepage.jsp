@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page errorPage="error.jsp" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -17,7 +17,7 @@
 	}else{
 %>
 
-<frameset rows="18%,79%,3%" border="0">
+<frameset rows="18%,79%,3%" border="0" class="container">
     <frame src="UserHeading.jsp">
     <frameset cols="20%,76%,4%">
         <frame src="SingleController?page=DisplayProductSectionsUserHome">

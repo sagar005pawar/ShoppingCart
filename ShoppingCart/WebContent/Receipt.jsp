@@ -1,14 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page errorPage="error.jsp" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Receipt</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css"/>
-  <script type="text/javascript" src="javascript/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/style.css">
-	
+	<jsp:include page="links.jsp" />	
 </head>
 <% HttpSession sess = request.getSession();
 
@@ -16,7 +13,7 @@
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
 %>
-<frameset cols="30%,40%,30%" border="0">
+<frameset cols="30%,40%,30%" border="0" class="container">
     <frame src="border1.jsp">
     <frameset rows="1%,90%,1%">
         <frame src="border1.jsp">    

@@ -101,41 +101,48 @@ public class SingleController extends HttpServlet {
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println("Exception at Replacing Item case");
-					e.printStackTrace();
+					d1.closeSession();
+					System.out.println("Exception at Replacing Item case" +e);
+					response.sendRedirect("Wel.jsp");
 				}
 				break;
 			}
 			
 			case "sortList":
 			{
-				String type = request.getParameter("type");			
-				String var = request.getParameter("var");
-				String from = request.getParameter("from");
-				System.out.println("Sorted By " + var+" "+type+" "+from);
-				a1 = new ArrayList<Products>();
-				a1 = (ArrayList<Products>) sess.getAttribute("asi");
-				switch (var) {
-					case "id":
-						Collections.sort(a1);
-						break;
-					case "name":
-						Collections.sort(a1, (p1, p2)->p1.getPrName().compareToIgnoreCase(p2.getPrName()));
-						break;
-					case "qty":
-						Collections.sort(a1, new QaComparator());
-						break;
-					case "price":
-						Collections.sort(a1, new PriceComparator());
-						break;
-					default:
-						break;
-				}
-				sess.setAttribute("asi", a1);				
-				if(from.equals("admin")){
-					response.sendRedirect("Products.jsp?type="+type);									
-				} else{
-					response.sendRedirect("UserProducts.jsp?type="+type);									
+				try {
+					String type = request.getParameter("type");			
+					String var = request.getParameter("var");
+					String from = request.getParameter("from");
+					System.out.println("Sorted By " + var+" "+type+" "+from);
+					a1 = new ArrayList<Products>();
+					a1 = (ArrayList<Products>) sess.getAttribute("asi");
+					switch (var) {
+						case "id":
+							Collections.sort(a1);
+							break;
+						case "name":
+							Collections.sort(a1, (p1, p2)->p1.getPrName().compareToIgnoreCase(p2.getPrName()));
+							break;
+						case "qty":
+							Collections.sort(a1, new QaComparator());
+							break;
+						case "price":
+							Collections.sort(a1, new PriceComparator());
+							break;
+						default:
+							break;
+					}
+					sess.setAttribute("asi", a1);				
+					if(from.equals("admin")){
+						response.sendRedirect("Products.jsp?type="+type);									
+					} else{
+						response.sendRedirect("UserProducts.jsp?type="+type);									
+					}
+				} catch (Exception e) {
+					d1.closeSession();
+					System.out.println("Exception at SortList Item case" +e);
+					response.sendRedirect("Wel.jsp");
 				}
 				break;
 			}
@@ -169,8 +176,9 @@ public class SingleController extends HttpServlet {
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					System.out.println("Exception at ShoppingClear case");
-					e.printStackTrace();
+					System.out.println("Exception at ShoppingClear case"+e);
+					d1.closeSession();
+					response.sendRedirect("Wel.jsp");
 				}
 				break;
 			}
@@ -208,11 +216,9 @@ public class SingleController extends HttpServlet {
 					response.sendRedirect("Pay.jsp");
 			
 				} catch (SQLException | NullPointerException | NumberFormatException ex) {
-					/*  Multiple Exceptions handled by single catch block from java 1.7  */
-					// TODO: handle exception
 					System.out.println(ex + " sagar pawar");
+					d1.closeSession();
 					response.sendRedirect("Wel.jsp");
-					//e.printStackTrace();
 				} 
 				break;
 			}
@@ -233,9 +239,10 @@ public class SingleController extends HttpServlet {
 					a1.forEach(System.out::println);					
 					sess.setAttribute("asi", a1);
 					response.sendRedirect("UserProducts.jsp?type="+type);
-				} catch (SQLException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
-					System.out.println("SQLException for UserProducts= "+ e1);
+					System.out.println("Exception for UserProducts= "+ e1);
+					d1.closeSession();
 					response.sendRedirect("Wel.jsp");
 				}
 				break;
@@ -251,7 +258,7 @@ public class SingleController extends HttpServlet {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					System.out.println("SQLException at Home for sections= "+e);
-					response.sendRedirect("Login.jsp");
+					response.sendRedirect("SingleController?page=Logout");
 				}
 				break;
 			}
@@ -295,7 +302,7 @@ public class SingleController extends HttpServlet {
 							System.out.println("Deletion Failure");
 							response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
 						}												
-					} catch (SQLException e) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						System.out.println("Deletion Failure");
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
@@ -315,7 +322,7 @@ public class SingleController extends HttpServlet {
 							System.out.println("Deletion Failure");
 							response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
 						}												
-					} catch (SQLException e) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						System.out.println("Deletion Failure");
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure ID= "+id);
@@ -335,7 +342,7 @@ public class SingleController extends HttpServlet {
 						System.out.println("Deletion Failure");
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 					}						
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("Deletion Failure");
 					response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
@@ -357,7 +364,7 @@ public class SingleController extends HttpServlet {
 						System.out.println("Deletion Failure");
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 					}						
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("Deletion Failure");
 					response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
@@ -386,7 +393,7 @@ public class SingleController extends HttpServlet {
 						System.out.println("Insertion Failure");
 						response.sendRedirect("InsertItem.jsp?msg=Insertion Failure Product= "+prname);
 					}	
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("Insertion Failure");
 					response.sendRedirect("InsertItem.jsp?msg=Insertion Failure Product= "+prname);
@@ -406,10 +413,10 @@ public class SingleController extends HttpServlet {
 					a1.forEach(System.out::println);					
 					sess.setAttribute("asi", a1);
 					response.sendRedirect("Products.jsp?type="+request.getParameter("type"));				
-				} catch (SQLException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					System.out.println("SQLException at Home for sections= "+ e1);
-					response.sendRedirect("AdminHome.jsp");
+					response.sendRedirect("Wel.jsp");
 				}
 				break;
 			}
@@ -421,10 +428,10 @@ public class SingleController extends HttpServlet {
 					Set<String> s1=(new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet());
 					sess.setAttribute("sc", s1);
 					response.sendRedirect("Home.jsp");
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("SQLException at DisplayProduct= "+e);
-					response.sendRedirect("Wel.jsp");
+					response.sendRedirect("SingleController?page=Logout");
 				}
 				break;
 			}
@@ -467,6 +474,7 @@ public class SingleController extends HttpServlet {
 					}					
 				} catch(Exception e){
 					System.out.println(e);
+					response.sendRedirect("AdminLoginPage.jsp");
 				}
 				break;
 			}
@@ -495,10 +503,10 @@ public class SingleController extends HttpServlet {
 					} else {
 						response.sendRedirect("Login.jsp?msg=Invalid User");
 					}
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					response.sendRedirect("Login.jsp?msg=Invalid User");
+					response.sendRedirect("Login.jsp");
 				}		
 				break;
 			}
@@ -523,8 +531,9 @@ public class SingleController extends HttpServlet {
 						re.forward(request, response);
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println(e);
+					RequestDispatcher re=request.getRequestDispatcher("Sign-up.jsp");
+					re.forward(request, response);
 				}
 				break;
 			}	
@@ -536,14 +545,15 @@ public class SingleController extends HttpServlet {
 					Shopping T = (Shopping) sess.getAttribute("total");
 					if((T.getTotal())!=0){
 						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
-						Shopping[] p = new Shopping[a2.size()];
 						for (Shopping s1 : a2) {
 							d1=new DAO();
-							boolean status=d1.ReplaceItems(s1);
-							if(status==true){System.out.println("Repalced Item= "+s1);}
+							if(d1.ReplaceItems(s1))
+								System.out.println("Repalced Item= "+s1);
+							else 
+								System.out.println("NOT Repalced Item= "+s1);
 						}
 					}
-					
+
 					d1=new DAO();
 					d1.ShoppingTruncate();
 
@@ -566,13 +576,12 @@ public class SingleController extends HttpServlet {
 						sess=request.getSession();
 						sess.invalidate();
 
-						System.out.println("SQLException/NullPointerException= "+e);
+						System.out.println("Exception= "+e);
 						response.sendRedirect("Login.jsp");
 
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-
-						e1.printStackTrace();
+						System.out.println("Exception= "+e1);
+						response.sendRedirect("Login.jsp");
 					}
 				}				
 				break;
@@ -618,10 +627,8 @@ public class SingleController extends HttpServlet {
 					response.sendRedirect("Login.jsp");
 				
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					System.out.println("SQLException/NullPointerException= "+e);
-
-					response.sendRedirect("Login.jsp");
+					System.out.println("Exception= "+e);
+					response.sendRedirect("SingleController?page=Logout");
 				}
 				break;
 			}
