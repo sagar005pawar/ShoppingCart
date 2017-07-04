@@ -17,21 +17,22 @@
 	} else {
 		ArrayList<Products> a1 = new ArrayList<Products>();
 		a1 = (ArrayList<Products>) sess.getAttribute("asi");
+		String type = request.getParameter("type");
 %>
 <center>
 	<div class="productheading">
-		<%=request.getParameter("type") %> Items
+		<%=type %> Items
 	</div>
 	<form action="SingleController?page=Commander" method="post">
 	<table class="productsTable" frame="hsides">
 
 		<tr style="font-size: 20px;">
-			<th><u>Product-ID</u></th>
-			<th><u>Product-Name</u></th>
-			<th><u>Quantity-Available</u></th>
-			<th><u>Price(per-Qty.)</u></th>
-			<th><u>Editing</u></th>
-			<th><u>Remove</u></th>			
+			<th><a href="SingleController?page=sortList&var=id&from=admin&type=<%=type %>"><u>Product-ID</u></a></th>
+			<th><a href="SingleController?page=sortList&var=name&from=admin&type=<%=type %>"><u>Product-Name</u></a></th>
+			<th><a href="SingleController?page=sortList&var=qty&from=admin&type=<%=type %>"><u>Quantity-Available</u></a></th>
+			<th><a href="SingleController?page=sortList&var=price&from=admin&type=<%=type %>"><u>Price(per-Qty.)</u></a></th>
+			<th><a><u>Editing</u></a></th>
+			<th><a><u>Remove</u></a></th>			
 		</tr>		
 		<tr></tr><tr></tr>	
 <%		for (Products p : a1) {

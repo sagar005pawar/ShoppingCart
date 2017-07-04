@@ -27,8 +27,9 @@
 		<h3><a class="section slink" href="SingleController?page=SectionItemsList&type=<%=str %>" target="frame3"><%=str %></a></h3>
 <%	} 
 %>
+
 <form action="AdminHomePage.jsp" target="_parent" >
-	<h3><input class="btn btn-outline btn-info" type="submit" value="Admin Home"></h3><br>
+	<div class="adminHomeButton"><input class="btn btn-outline btn-info" type="submit" value="Admin Home"></div>
 </form>
 
 <a class="hlink" href="SingleController?page=Logout" target="_parent">Logout </a><br><br>

@@ -31,6 +31,12 @@
 	<form action="SingleController?page=LatestCommander" method="post">
 
 	<table frame="hsides" style="width: 75%; margin-bottom: 35px;">
+	<tr style="font-size: 13px;">
+		<th><label style="margin-left: 8%;"><a href="SingleController?page=sortList&var=name&from=user&type=<%=type %>">Name</a></label></th>
+		<th><label style="margin-left: 58%;"><a href="SingleController?page=sortList&var=qty&from=user&type=<%=type %>">Qty.</a></label></th>
+		<th></th>
+		<th><label style="margin-left: 50%;"><a href="SingleController?page=sortList&var=price&from=user&type=<%=type %>">Price</a></label></th>		
+	</tr>
 <%		for (int i = 0; i < a1.size(); i++) {
 %>		
 	<tr style="text-align: center; text-transform: capitalize; font-family: Poor Richard;" >

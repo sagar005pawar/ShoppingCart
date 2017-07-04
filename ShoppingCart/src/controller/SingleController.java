@@ -23,9 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import db.DAO;
-import model.Products;
-import model.Shopping;
-import model.User;
+import model.*;
 
 @WebServlet("/SingleController")
 public class SingleController extends HttpServlet {
@@ -108,6 +106,40 @@ public class SingleController extends HttpServlet {
 				}
 				break;
 			}
+			
+			case "sortList":
+			{
+				String type = request.getParameter("type");			
+				String var = request.getParameter("var");
+				String from = request.getParameter("from");
+				System.out.println("Sorted By " + var+" "+type+" "+from);
+				a1 = new ArrayList<Products>();
+				a1 = (ArrayList<Products>) sess.getAttribute("asi");
+				switch (var) {
+					case "id":
+						Collections.sort(a1);
+						break;
+					case "name":
+						Collections.sort(a1, (p1, p2)->p1.getPrName().compareToIgnoreCase(p2.getPrName()));
+						break;
+					case "qty":
+						Collections.sort(a1, new QaComparator());
+						break;
+					case "price":
+						Collections.sort(a1, new PriceComparator());
+						break;
+					default:
+						break;
+				}
+				sess.setAttribute("asi", a1);				
+				if(from.equals("admin")){
+					response.sendRedirect("Products.jsp?type="+type);									
+				} else{
+					response.sendRedirect("UserProducts.jsp?type="+type);									
+				}
+				break;
+			}
+			
 			
 			case "ShoppingClear":
 			{
@@ -200,7 +232,6 @@ public class SingleController extends HttpServlet {
 					Collections.sort(a1,(h1,h2)->h1.getPrName().compareToIgnoreCase(h2.getPrName()));
 					a1.forEach(System.out::println);					
 					sess.setAttribute("asi", a1);
-					System.out.println("get p");
 					response.sendRedirect("UserProducts.jsp?type="+type);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

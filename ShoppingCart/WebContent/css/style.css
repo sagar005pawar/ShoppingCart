@@ -94,7 +94,10 @@ a.section {
 			color: #66cc00;
 			text-decoration: underline;
 		}
-
+.adminHomeButton {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
 
 
 .default.outline {
@@ -134,7 +137,7 @@ a.section {
 
 
 .btn-info.btn-outline {
-    color: #5bc0de;
+    color: #fff;
     border-color: #5bc0de; 
 }
 .btn-info:hover {

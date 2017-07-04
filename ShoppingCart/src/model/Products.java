@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 public class Products implements Cloneable, Serializable, Comparable<Products> {
 	private int Id;	
@@ -99,5 +100,4 @@ public class Products implements Cloneable, Serializable, Comparable<Products> {
 			return 0;
 		}
 	}
-		
 }
