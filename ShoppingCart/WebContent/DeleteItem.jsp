@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<jsp:include page="links.jsp" />
 <title>Delete Item</title>
 </head>
-<body>
+<body class="container">
 <% 
 	HttpSession sess = request.getSession();
 

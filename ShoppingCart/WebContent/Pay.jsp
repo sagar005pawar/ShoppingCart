@@ -20,7 +20,7 @@
 
 %>
 <center><br>
-		<label class="payHeading"><u>Total AMT is:=</u><%=T.getTotal() %></label>
+		<label class="payHeading"><u>Total-AMT is</u>:=  <%=T.getTotal() %></label>
 	<br>
 	<%   	
 		if((T.getTotal())==0){

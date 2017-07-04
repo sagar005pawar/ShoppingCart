@@ -7,9 +7,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>HOME</title>
-  <link href="css/style.css" rel='stylesheet' type='text/css' />
+	<jsp:include page="links.jsp" />
 </head>
-<body bgcolor="yellow">
+<body class="container homesec">
 <% 
 	HttpSession sess = request.getSession();
 
@@ -20,9 +20,9 @@
 		a1.addAll((Set<String>) sess.getAttribute("sc"));
 %>
 <center>
-<h1>Shop SECTIOS</h1><br />
-	You can choice any section here for it should take, What are the requirments of us...?<br>
-
+<h2 style="font-family: Stencil">Shop SECTIOS</h2><br />
+	<div style="font-family: AR JULIAN;">You can choice any section here for it should take, What are the requirments of us...?</div>
+	<br>
 <%	for(String str : a1) { %>
 		<h3><a class="section slink" href="SingleController?page=SectionItemsList&type=<%=str %>" target="frame3"><%=str %></a></h3>
 <%	} 

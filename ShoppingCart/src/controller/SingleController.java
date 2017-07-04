@@ -421,9 +421,23 @@ public class SingleController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}	
-				
-				
-				
+			}
+			
+			case "AdminLogin":
+			{
+				try {
+					String user = request.getParameter("usname");
+					String loginpass = request.getParameter("pass");
+					System.out.println(user+"\t"+loginpass);
+					if (user.equals("admin")&&loginpass.equals("test")) {
+						response.sendRedirect("AdminHomePage.jsp");//jsp	
+					} else {
+						response.sendRedirect("AdminLoginPage.jsp?msg=Invalid Admin");
+					}					
+				} catch(Exception e){
+					System.out.println(e);
+				}
+				break;
 			}
 			
 			case "MyController":
@@ -502,7 +516,7 @@ public class SingleController extends HttpServlet {
 					d1=new DAO();
 					d1.ShoppingTruncate();
 
-					d1.HibernateSQLclose();
+		//			d1.HibernateSQLclose();
 					
 					sess=request.getSession();
 					sess.invalidate();
@@ -516,7 +530,7 @@ public class SingleController extends HttpServlet {
 						d1=new DAO();
 						d1.ShoppingTruncate();
 
-						d1.HibernateSQLclose();;
+	//					d1.HibernateSQLclose();;
 
 						sess=request.getSession();
 						sess.invalidate();
@@ -564,7 +578,7 @@ public class SingleController extends HttpServlet {
 					d1=new DAO();
 					d1.ShoppingTruncate();
 
-					d1.HibernateSQLclose();;
+//					d1.HibernateSQLclose();;
 
 					sess=request.getSession();
 					sess.invalidate();

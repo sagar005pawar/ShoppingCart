@@ -1,65 +1,106 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Admin Login</title>
+	<title>Admin Login Page</title>
+  <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+  <script type="text/javascript" src="js/modernizr.custom.js"></script>
+  <script type="text/javascript" src="js/move-top.js"></script>
+  <script type="text/javascript" src="js/easing.js"></script>	
+	<jsp:include page="links.jsp" />
+
+   <script type="text/javascript">
+	function validation() {
+		var name=document.loginForm.usname11.value;
+		var password=document.loginForm.pass11.value;
+		var n1=name.split(' ').join('+');
+		var p1=password.split(' ').join('+');
+//		document.getElementById("errorMessage").innerHTML="Login Field should not be blank..";
+		if(name=="" || n1!=name){
+			document.getElementById("errorMessage").innerHTML="username Field should not be blank or with spaces..";
+			window.alert("username Field should not be blank or with spaces..");
+			document.loginForm.usname11.focus();
+			return false;
+		}
+		if(password=="" || p1!=password){
+			document.getElementById("errorMessage").innerHTML="password Field should not be blank or with spaces..";
+			window.alert("Password Field should not be blank or with spaces..");
+			document.loginForm.pass11.focus();
+			return false;
+		}
+		return true;
+	}
+</script> 
+
+
 </head>
-<body style="background-color: cyan">
-<% 
-	HttpSession sess = request.getSession();
+<body class="container-fluid lp-body">
 
-	if(sess.isNew()) {
-		response.sendRedirect("SingleController?page=Logout");
-	}else{
-%>	
-	<form action='AdminHomePage.jsp' method='post'>
-		<!-- Enter Name : <input type='text' name='usname'> <br /> 
-		Enter Password: <input type='password' name='pass'> <br /> 
-		<input type="button" value="Register" onclick='window.location.href="RegisterPage.jsp"'>
-		<input type='submit' value='Log In'> 
-		<input type='reset'	value='Reset'> -->
-	<table align="center">
-	
-	<tr>
-		<td style="color: red"><b>Login Page</b></td>
-		
-	</tr>
-	<tr><td></td> </tr>
-	<tr> </tr>
-	<tr> </tr>
-	<tr>
-		<td><b>Enter Admin Name :</b></td>
-		<td align="center"> <input type='text' name='usname'></td>
-	</tr>
-	
-	<tr>
-		<td><b>Enter Admin Password:</b></td>
-		<td><input type='password' name='pass'></td>
-	</tr>
-	
-	<tr> </tr>
-	<tr> </tr>
-	<tr> </tr>
-	
-	<tr>
-		<td align="center"> <input type="button" value="Register" onclick='window.location.href="AdminRegisterPage.jsp"'></td>
-		<td align="center"> <input type='submit' value='  Log In  '> </td>
-		<td align="center"> <input type='reset'	value='Reset'></td>
-	</tr>
-	
-	<tr>
-		<td align="center"> <a href='ForgetPassPage.jsp' style="color: red"> Forget Password? </a></td>
-		<td align="center"> <a href='ForgetPassPage.jsp' > Administator </a> </td>
-		<td align="center"><a class="Logout" href="SingleController?page=Logout">Get-Back</a></td>
-	</tr>
-	
-	</table>
-
-	
-	<!-- <a href='ForgetPassPage.jsp'>Forget Password </a> -->
-
-	</form>
-<% } %>	
+	<div class="container" ng-app="">
+		<div><label class="lp">ADMIN PAGE<sup>SP</sup></label></div>
+		<br>
+		<div class="container-fluid lp" >	
+			<form action="SingleController?page=AdminLogin" name="loginForm" method="post"  class="form-horizontal" onsubmit='return(validation())'>
+	    		<div class="form-group">
+	      			<label class="control-label col-sm-5" for="usname11">Enter the AdminnN:</label>
+	      			<div class="col-sm-3">
+	      				<input ng-model="usname" class="input-uname form-control" type='text' id="usname11" name='usname' placeholder="Enter Username" required="required" />    
+	      			</div>
+	    		</div>
+	    		<div class="form-group">
+	      			<label class="control-label col-sm-5" for="pass11">Enter the Password:</label>
+	      			<div class="col-sm-3">
+	        			<input ng-model="pass" class="lp-input-pass form-control" type='password' id="pass11" name='pass' placeholder="Enter password" required="required" />
+	      			</div>
+	    		</div>
+	    		<div class="form-group">
+	      			<div class="col-sm-offset-2 col-sm-7">
+	        			<div class="checkbox">
+	          				<label><input type="checkbox"> Remember me</label>
+	        			</div>
+	      			</div>
+	    		</div>
+	    		<div class="form-group">
+	      			<div class="col-sm-offset-4 col-sm-4">
+	        			<input class="btn outline default" id="login" type="submit"  value='Login'>	
+						<input class="btn outline default" id="reset" type="reset" value="Reset">       
+	      			</div>
+	    		</div>
+	    		<div class="form-group">
+	      			<div class="col-sm-offset-4 col-sm-4">
+						<b><a class="reg link" href="Sign-up.jsp">NEW CustomeR</a>
+						<a class="admin link" href="Login.jsp">UserS</a></b>
+	      			</div>
+	    		</div>
+				<div class="form-group">
+					<%Date date = new Date();SimpleDateFormat ft= new SimpleDateFormat("E  dd-MM-yyyy");%>
+					<label class="datecn"><%=ft.format(date) %></label>
+				</div>
+				<div class="form-group">
+	           		<div class="col-sm-offset-2 col-sm-8">
+	                	<span class="text-danger" id="errorMessage"></span>
+	            	</div>
+	            </div>
+				
+				<div class="form-group"><label ng-bind="usname"></label></div>
+				
+				<label class="note-lp"><b>Note:- </b>Children's are not allowed here, Only smarts people's are allowed here for checking this s/w....</label>
+	  		</form>
+		</div>
+			
+		<div class="msgerr" >
+			<label>
+			<%
+				String str = request.getParameter("msg");
+				if (str == null) {
+					out.println(" ");
+				} else {
+					out.print(str);
+				}
+			%>
+			</label>
+		</div>
+	</div>	
 </body>
 </html>

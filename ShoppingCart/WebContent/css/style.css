@@ -255,25 +255,28 @@ a.Logout{
 
 label.lp {
 	font-family: Imprint MT Shadow;
-	font-size: 30;	
-	margin-top: 7%;
+	font-size: 30px;	
+	margin-top: 9%;
 }
 
 .lp-body {
 	width: auto;
 	height: 100%;
-    background-attachment: fixed;
+    background-attachment: scroll;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     color: #fff;	
     text-align: center;
-    background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;
- 
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/intro-bg.jpg"); 
+    
  }
+ 
 .msgerr{
 	font-size: 	18px;
 	margin-top: 2%;
+	margin-bottom: 3%;
 }
 .datecn {
 	font-size: 15;
@@ -432,4 +435,10 @@ table.regn-table {
 	text-transform: capitalize;
 }
 
-
+.productsTable{
+	text-transform: capitalize;
+	width: 80%;
+	text-align:center;
+	font-family: Poor Richard;
+	margin-bottom: 3%;
+}

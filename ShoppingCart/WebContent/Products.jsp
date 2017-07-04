@@ -4,11 +4,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Products List</title>
-  <link href="css/style.css" rel='stylesheet' type='text/css' />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<jsp:include page="links.jsp" />
+	<title>Products List</title>
 </head>
-<body>
+<body class="container-fluid products" ng-app="myApp" ng-controller="uProducts">
 <% 
 	HttpSession sess = request.getSession();
 
@@ -20,12 +20,12 @@
 %>
 <center>
 	<div class="productheading">
-		<%=a1.get(1).getType() %> Items
+		<%=request.getParameter("type") %> Items
 	</div>
 	<form action="SingleController?page=Commander" method="post">
-	<table frame="hsides" style="width: 80%;">
+	<table class="productsTable" frame="hsides">
 
-		<tr style="text-align:center; font-size: 19px; text-transform: capitalize;">
+		<tr style="font-size: 20px;">
 			<th><u>Product-ID</u></th>
 			<th><u>Product-Name</u></th>
 			<th><u>Quantity-Available</u></th>
@@ -36,7 +36,7 @@
 		<tr></tr><tr></tr>	
 <%		for (Products p : a1) {
 %>		
-		<tr style="text-align:center; font-size: 18px; text-transform: capitalize;">
+		<tr style="font-size: 18px;">
 			<td><%=p.getId()%></td>
 			<td><%=p.getPrName()%></td>
 			<td><%=p.getQA()%></td>
@@ -54,14 +54,20 @@
 	</table>
 </form>
 	
-<form action="AdminHomePage.jsp" target="_parent">	
-	<h4><input class="btn btn-success" type="submit" name="btn3" value="Admin Home" align="middle" /></h4>
+<form action="AdminHomePage.jsp" target="_parent">
+	<div><a target="_parent" href="InsertItem.jsp?type=<%=request.getParameter("type") %>" class="btn btn-success" type="submit" name="btn3" align="middle" >Insert Item</a>
+	<input class="btn btn-success" type="submit" name="btn3" value="Admin Home" align="middle" /></div>
 </form>
-
-<form action="SingleController?page=LinkSectionDeletion&type=<%=a1.get(1).getType() %>" method="post" target="_parent">
-	<h4><input class="btn btn-danger" type="submit" name="btn3" value="<%=a1.get(1).getType() %> Section Delete" align="middle" /></h4>
+<br>
+<form action="SingleController?page=LinkSectionDeletion&type=<%=request.getParameter("type") %>" method="post" target="_parent">
+	<h4><input style="margin-bottom: 7%;" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger" type="submit" name="btn3" value="<%=request.getParameter("type") %> Section Delete" align="middle" /></h4>
 </form>
-
+<script>
+	var result = confirm("Want to delete?");
+	if (result) {
+		return true;
+	}else{return false;}
+</script>
 </center>
 <%	} 
 %>

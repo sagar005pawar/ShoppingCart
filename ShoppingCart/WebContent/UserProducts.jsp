@@ -5,8 +5,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<jsp:include page="links.jsp" />
 	<title>User Products</title>
-	<jsp:include page="links.jsp" />
 </head>
 <body class="container" ng-app="myApp" ng-controller="uProducts">
 <% 
@@ -33,7 +33,7 @@
 	<table frame="hsides" style="width: 75%; margin-bottom: 35px;">
 <%		for (int i = 0; i < a1.size(); i++) {
 %>		
-	<tr style="text-align: center; text-transform: capitalize;font-family: Poor Richard" >
+	<tr style="text-align: center; text-transform: capitalize; font-family: Poor Richard;" >
 		<th><h3><%=p[i].getPrName()%> :
 		<input type="hidden" name="itname[<%=i%>]" value="<%=p[i].getPrName() %>" />
 		<input type="hidden" name="scnm[<%=i%>]" value="<%=type %>" />
@@ -48,7 +48,7 @@
 <%	} 
 %>
 	</table>
-	<h4><input class="btn btn-primary" type="submit" value="Take">  <input class="btn btn-primary" type="reset" value="Clear"></h4>
+	<div style="margin-bottom: 7%;"><input class="btn btn-primary" type="submit" value="Take">  <input class="btn btn-primary" type="reset" value="Clear"></div>
 </form>	
 </center>
 <%	} 

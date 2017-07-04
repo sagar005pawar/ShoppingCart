@@ -1,21 +1,19 @@
-<%@page import="java.util.ArrayList" %>
-<%@page import="java.util.ArrayList"%>
-<%@ page import="model.Shopping" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<jsp:include page="links.jsp" />
 <title>Insert Item</title>
 </head>
-
-<body>
+<body class="container">
 <% 
 	HttpSession sess = request.getSession();
-
 	if(sess.isNew()) {
 		response.sendRedirect("SingleController?page=Logout");
 	}else{
+		String type=request.getParameter("type");
+		if(type==null){type="";}
 %>
 
 <center>
@@ -29,7 +27,12 @@
 		<th>Price</th>
 	</tr>
 	<tr>
-		<td align="center"> <input type="text" name="a1" align="middle" required="required" /></td>
+	<%if(type=="") {%>
+		<td align="center"> <input type="text" name="a1" align="middle" required="required" /></td>	
+	<%}else if(type!=""){ %>
+		<input type="hidden" name="a1" value="<%=type%>" required="required" /></td>
+		<td align="center"> <input value="<%=type %>" type="text" id="type" name="a1" align="middle" required="required" /></td>
+	<%} %>
 		<td align="center"> <input type="text" name="a2" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" name="a3" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" min=1 name="a4" align="middle" required="required" /></td>
@@ -38,6 +41,13 @@
 	</tr>
 </table>
 </form>
+<script>
+	$(document).ready(function(){
+		if($("#type").val()!=''){
+			$("#type").attr('disabled', 'disabled');
+		}
+	});
+</script>
 	<br><br><br>
 	<input type="submit" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
 	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<jsp:include page="links.jsp" />
 	<title>Update-Item</title>
 </head>
-<body>
+<body class="container">
 <% 
 	HttpSession sess = request.getSession();
 
@@ -17,6 +18,7 @@
 		String f3=request.getParameter("type");
 		String f4=request.getParameter("qta");
 		String f5=request.getParameter("price");
+		
 %>
 <center>
 	<% if(f1!=null && f2!=null) { %>
@@ -31,10 +33,12 @@
 		<th>Price</th>
 	</tr>
 	<tr>
-		<td align="center"> <input type="number" align="middle" value=<%=f1%> disabled="disabled" required="required" />
+		<td align="center"> <input id="id" type="number" align="middle" value="<%=f1%>"  required="required" />
 		<input type="hidden" name="a1" value=<%=f1%> required="required" /></td>
-		<td align="center"> <input type="text" name="a2" align="middle" value=<%=f2%> required="required" /></td>
-		<td align="center"> <input type="text" name="a3" align="middle" value=<%=f3%> required="required" /></td>
+		<input type="hidden" name="a2" value=<%=f2%> required="required" /></td>
+		<input type="hidden" name="a3" value=<%=f3%> required="required" /></td>
+		<td align="center"> <input id="name" type="text" name="a2" align="middle" value="<%=f2%>" required="required" /></td>
+		<td align="center"> <input id="type" type="text" name="a3" align="middle" value="<%=f3%>" required="required" /></td>
 		<td align="center"> <input type="number" name="a4" align="middle" value=<%=f4%> required="required" /></td>
 		<td align="center"> <input type="number" name="a5" min=1 align="middle" value=<%=f5%> required="required" /></td>
 		<td><input type="submit" name="btn1" value="Update Item" align="middle" /></td>
@@ -89,5 +93,19 @@
 	} %>	
 
 </center>
+<script>
+	$(document).ready(function(){
+		if($("#id").val()!=''){
+			$("#id").attr('disabled', 'disabled');
+		}
+		if($("#name").val()!=''){
+			$("#name").attr('disabled', 'disabled');
+		}
+		if($("#type").val()!=''){
+			$("#type").attr('disabled', 'disabled');
+		}
+
+	});
+</script>
 </body>
 </html>

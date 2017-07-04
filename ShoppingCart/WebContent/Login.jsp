@@ -1,10 +1,10 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>Login Page</title>
   <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-  <script src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/modernizr.custom.js"></script>
   <script type="text/javascript" src="js/move-top.js"></script>
   <script type="text/javascript" src="js/easing.js"></script>	
