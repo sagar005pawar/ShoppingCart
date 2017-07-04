@@ -94,134 +94,50 @@ a.section {
 			color: #66cc00;
 			text-decoration: underline;
 		}
+		
 .adminHomeButton {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
 
 
-.default.outline {
-	color: #ccc;
-    border-color: #ccc; 
-}
-.default {
+
+.btn.login.out {
 	font-size: 14;
 	font-family: Imprint MT Shadow;
 	color: #ccc;
+	margin-left: 3%;
     background-color: transparent;
     border-color: #ccc;
 }
-.default:HOVER {
-	color: red;
+.btn.login.out:HOVER {
+	font-size: 14;
+	font-family: Imprint MT Shadow;
+	color: #000000;
     background-color: transparent;
-    border-color: #adadad;
-}
-
-
-
-.btn-default.btn-outline {
-    color: #333;
-    border-color: #333; 
-}
-.btn-default {
-    color: #333;
-    background-color: #fff;
     border-color: #ccc;
 }
-.btn-default:hover {
+
+
+.btn.btn-outline.btn-black {
+    color: #333;
+    background-color: inherit;
+    border-color: #ccc;	
+}
+.btn.btn-outline.btn-black:HOVER {
     color: #fff;
     background-color: #333;
     border-color: #000000;
+	
 }
-
-
 
 .btn-info.btn-outline {
     color: #fff;
     border-color: #5bc0de; 
 }
-.btn-info:hover {
-    color: #fff;
-    background-color: #31b0d5;
-    border-color: #269abc;
-}
 
-.btn-info {
-    color: #46b8da;
-    background-color: transparent;
-    border-color: #46b8da;
-}
-
-.btn-danger {
-    color: #fff;
-    background-color: #e64415;
-    border-color: #ff8080;
-}
-
-
-.btn-success {
-    color: #fff;
-    background-color: #5cb85c;
-    border-color: #4cae4c;
-}
-
-.btn-success:hover {
-    color: #fff;
-    background-color: #449d44;
-    border-color: #398439;
-}
-
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #286090;
-    border-color: #204d74;
-}
-.btn-primary.focus, .btn-primary:focus {
-    color: #fff;
-    background-color: #286090;
-    border-color: #122b40;
-}
-.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:focus:active, .btn:focus {
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: -2px;
-}
-.btn-primary {
-    color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-.btn-outline {
-    color: inherit;
-    background-color: transparent;
-    transition: all .5s;
-}
-
-
-.btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.4285;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-.welcome-body {
+ 
+ .welcome-body {
 	background-color: pink;
 }
 

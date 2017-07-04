@@ -64,8 +64,8 @@
 	    		</div>
 	    		<div class="form-group">
 	      			<div class="col-sm-offset-4 col-sm-4">
-	        			<input class="btn outline default" id="login" type="submit"  value='Login'>	
-						<input class="btn outline default" id="reset" type="reset" value="Reset">       
+	        			<input class="btn out login" id="login" type="submit"  value='Login'>
+						<input class="btn out login" id="reset" type="reset" value="Reset">       
 	      			</div>
 	    		</div>
 	    		<div class="form-group">

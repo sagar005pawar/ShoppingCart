@@ -4,9 +4,7 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	5	*	150.0	=	 750.0	=>	Books
-	3	*	200.0	=	 600.0	=>	Drafter
-	7	*	10.0	=	 70.0	=>	Pens
+	1	*	95000.0	=	 95000.0	=>	Yamaha
 
 
-			TOTAL AMT is:=1420.0
+			TOTAL AMT is:=95000.0

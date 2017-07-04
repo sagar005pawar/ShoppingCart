@@ -59,9 +59,9 @@
 	<form action="SingleController?page=Logout" method="post" target="_parent">
 		<br><br>
 	<%if(T.getTotal()!=0.0){ %>	
-		<input class="btn btn-outline btn-default" style="margin-right: 10px;" type="button" align="middle" value=" Clear / Erase " onclick='window.location.href="SingleController?page=ShoppingClear"' />
+		<input class="btn btn-outline btn-black" style="margin-right: 10px;" type="button" align="middle" value=" Clear / Erase " onclick='window.location.href="SingleController?page=ShoppingClear"' />
 	<%}  %>
-	<input class="btn btn-outline btn-default" type="submit" align="middle" value="Cancel / Close" >
+	<input class="btn btn-outline btn-black" type="submit" align="middle" value="Cancel / Close" >
 </form>
 
 	
