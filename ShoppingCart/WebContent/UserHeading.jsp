@@ -15,21 +15,22 @@
 </head>
 <body class="container-fluid heading">
   <% 
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+
   HttpSession sess = request.getSession();
 
 	if(sess.isNew()) {
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
 %>
-<%
-	//Back Button Cache Disable
-	response.setHeader("Cache-Control", "no-store");
-	response.setHeader("Pragma", "no-cache");
-	response.setHeader("Expires", "0");				
-%>
 
   <center>
-  <font style: face="Algerian"><u><h1>HOMEPAGE</h1></u>
+  	<div class="homeHeading">homepage
+  		<input align="right" ng-model="usname" class="ajaxSearch" type='text' id="usname11" name='usname' placeholder="Search" required="required" /> 
+	</div>
   <marquee direction="left" scrollamount="10" width="100%" hieght="20" >
     This is shopping homepage & these are related sections following below:<br />
     </marquee>

@@ -1,9 +1,46 @@
+.homeHeading {
+	font-family: Algerian;
+	font-size: 40px;
+	text-align: center;
+	margin-left: 26%;
+	text-transform: capitalize;
+}
+.homeHeading.ajaxSearch {display: inline;}
+.ajaxSearch {
+	font-size: 12px;
+	float: right;
+	margin-top: 12px;
+	margin-right: 10%;
+	font-family: AR JULIAN, Arial, Helvetica, sans-serif;
+	text-transform: capitalize;
+	
+	border:1px solid #999999;
+	width: 25%;
+	height: 40%;
+	color:#000;
+	padding: 7px 15px 7px 15px;
+}
+
+.heading {		
+	/* background-image: url("../Images/sbad.jpg");*/
+	width: auto;
+	height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;	
+    text-align: center;
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/clouds.jpg"); 		
+    font-family: Algerian;
+}
 
 .payBack{
 	margin-top: 20px;
 	margin-bottom: 30px;
-	background-color: #FF52F5;
-	font-family: Stencil;
+	background-color: #ff6cf8;
+	font-family: Algerian;
 	text-align: center;
 }
 .payHeading{
@@ -182,7 +219,7 @@ a.u-home-link{
 a.u-home-link:HOVER {
 	font-family: impact;
 	color: #00ffff;
-	font-size: 33px;
+	font-size: 31px;
 	text-decoration: underline;
 }
 
@@ -407,19 +444,6 @@ table.regn-table {
 }
 
 
-.heading {		
-	/* background-image: url("../Images/sbad.jpg");*/
-	width: auto;
-	height: 100%;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #fff;	
-    text-align: center;
-    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
-    background-image: url("../Images/clouds.jpg"); 		
-}
 
 .productheading {
 	margin-top: 20px;

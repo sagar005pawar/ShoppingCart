@@ -52,7 +52,7 @@
 	    		<div class="form-group">
 	      			<label class="control-label col-sm-5" for="usname11">Enter the Username:</label>
 	      			<div class="col-sm-3">
-	      				<input ng-model="usname" class="input-uname form-control" type='text' id="usname11" name='usname' placeholder="Enter Username" required="required" />    
+	      				<input ng-model="usname" class="input-uname form-control" type='text' id="usname11" name='usname' placeholder="Enter Username" required="required" />
 	      			</div>
 	    		</div>
 	    		<div class="form-group">
