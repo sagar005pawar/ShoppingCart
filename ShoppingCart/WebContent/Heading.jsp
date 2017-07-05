@@ -21,6 +21,12 @@
 	}else{
 		//background="Images/sbad.jpg"
 %>
+<%
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+%>
 
   <center>
   <font style: face="Algerian"><u><h1>Products</h1></u>

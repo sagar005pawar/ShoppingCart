@@ -36,8 +36,13 @@
 
 
 </head>
-<body class="container-fluid lp-body">
-
+<body class="container-fluid lp-body adminLoginBody">
+<%
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+%>
 	<div class="container" ng-app="">
 		<div><label class="lp">ADMIN PAGE<sup>SP</sup></label></div>
 		<br>

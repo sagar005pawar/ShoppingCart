@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page errorPage="error.jsp" language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
@@ -8,9 +9,14 @@
 </head>
 <body class="container">
 <% 
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+
 	HttpSession sess = request.getSession();
 
-	if(sess.isNew()) {
+	if((sess.isNew())||(sess.getAttribute("session")==null)||(sess.getAttribute("session")=="logout")) {
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
 		String f1=request.getParameter("id");
@@ -18,8 +24,9 @@
 		String f3=request.getParameter("type");
 		String f4=request.getParameter("qta");
 		String f5=request.getParameter("price");
-		
+				
 %>
+
 <center>
 	<% if(f1!=null && f2!=null) { %>
 	<form action="SingleController?page=ItemUpdating" method="post">
@@ -107,5 +114,11 @@
 
 	});
 </script>
+<c:out value="${id }"></c:out>
+<c:out value="${prname }"></c:out>
+<c:out value="${type }"></c:out>
+<c:out value="${qta }"></c:out>
+<c:out value="${price }"></c:out>
+
 </body>
 </html>

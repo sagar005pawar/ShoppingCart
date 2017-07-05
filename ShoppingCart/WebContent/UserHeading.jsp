@@ -21,6 +21,13 @@
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
 %>
+<%
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+%>
+
   <center>
   <font style: face="Algerian"><u><h1>HOMEPAGE</h1></u>
   <marquee direction="left" scrollamount="10" width="100%" hieght="20" >

@@ -10,10 +10,17 @@
 <% 
 	HttpSession sess = request.getSession();
 
-	if(sess.isNew()) {
+	if((sess.isNew())||(sess.getAttribute("session")==null)||(sess.getAttribute("session")=="logout")) {
 		response.sendRedirect("SingleController?page=Logout");
 	}else{
 %>
+<%
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+%>
+
 <center>
 	<br><h2><u>Product Deleting</u></h2><br><br>
 

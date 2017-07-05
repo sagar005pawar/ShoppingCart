@@ -1,3 +1,4 @@
+
 .payBack{
 	margin-top: 20px;
 	margin-bottom: 30px;
@@ -70,6 +71,7 @@ a.section {
 		.slink:HOVER {
 			color: #ff3333;
 			text-decoration: underline;
+			font-size: 22px;
 		}
 		.slink:ACTIVE {
 			color: #66cc00;
@@ -95,10 +97,6 @@ a.section {
 			text-decoration: underline;
 		}
 		
-.adminHomeButton {
-	margin-top: 50px;
-	margin-bottom: 50px;
-}
 
 
 
@@ -138,36 +136,69 @@ a.section {
 
  
  .welcome-body {
-	background-color: pink;
+/* 	background-color: pink;	*/	
+ 	width: auto;
+	height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;	
+    text-align: center;
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/wallpaper2.jpg");
+    background-color: transparent; 	
 }
 
 .welcome-heading {
+	margin-top: 2%;
 	font-family: Algerian;
 	color: red;
 	text-decoration: underline;
-	font-size: 40;	
+	font-size: 40px;
+	font-weight: bold;	
 }
 
 .w-city{
-	font-size: 18;
+	font-size: 40px;
+	text-transform: capitalize;
+	font-family: impact;
+	color: #00ffff;
 }
 
 .wl-city{
 	font-family: AR JULIAN;
-	color: green;
+	color: #00ff80;
 	text-decoration: underline;
-	font-size: 30;
+	font-size: 30px;
+	text-transform: capitalize;
+}
+a.u-home-link{
+	font-family: impact;
+	color: #ffffff;
+	font-size: 28px;
+	text-decoration: none;
+}
+a.u-home-link:HOVER {
+	font-family: impact;
+	color: #00ffff;
+	font-size: 33px;
+	text-decoration: underline;
 }
 
-a.u-home-link{
-	font-family: Colonna MT;
-	color: blue;
-	font-size: 22;
-}
 a.Logout{
 	font-family: Colonna MT;
-	color: blue;
-	font-size: 20;
+	color: #ffffff;
+	font-size: 24px;
+	text-decoration: none;
+}
+
+a.Logout:HOVER{
+	font-family: Colonna MT;
+	color: #00ffff;
+	font-size: 28px;
+	text-decoration: underline;
+	
 }
 
 
@@ -177,7 +208,19 @@ label.lp {
 	font-size: 30px;	
 	margin-top: 9%;
 }
-
+.lp-body.adminLoginBody {
+		width: auto;
+	height: 100%;
+    background-attachment: scroll;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;	
+    text-align: center;
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/sduLRvf.jpg"); 
+	
+}
 .lp-body {
 	width: auto;
 	height: 100%;
@@ -188,8 +231,7 @@ label.lp {
     color: #fff;	
     text-align: center;
     /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
-    background-image: url("../Images/intro-bg.jpg"); 
-    
+    background-image: url("../Images/eQrAcPj.jpg");     
  }
  
 .msgerr{
@@ -315,20 +357,26 @@ table.regn-table {
 	margin-left: 5px;	
 }
 
+.ln{
+	font-size: 23px;
+	font-weight: bold;
+}
+.ln.out {	font-size: 20px;}
 		.ln:LINK {
-			color: #009900;
+			color: #ffffff;
 			text-decoration: none;
 		}
 		.ln:VISITED {
-			color: #009900;
+			color: #ffffff;
 			text-decoration: none;
 		}
 		.ln:HOVER {
-			color: #ff0033;
+			color: #80ffff;
 			text-decoration: underline;
+			font-size: 25px;
 		}
 		.ln:ACTIVE {
-			color: blue;
+			color: #ff1717;
 			text-decoration: underline;
 		}
 
@@ -340,9 +388,37 @@ table.regn-table {
 .adminoperations {
 	font-size: 20px;	
 }
+.adminHomeButton {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
 
-.heading {	
-	background-image: url("../Images/sbad.jpg");
+.adminHomepage {
+	width: auto;
+	height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;	
+    text-align: center;
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/Xulubox.jpg"); 	
+}
+
+
+.heading {		
+	/* background-image: url("../Images/sbad.jpg");*/
+	width: auto;
+	height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;	
+    text-align: center;
+    /*background: url(../Images/intro-bg.jpg) no-repeat bottom center scroll;*/
+    background-image: url("../Images/clouds.jpg"); 		
 }
 
 .productheading {

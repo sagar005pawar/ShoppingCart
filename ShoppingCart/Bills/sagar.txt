@@ -4,7 +4,8 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	1	*	95000.0	=	 95000.0	=>	Yamaha
+	1	*	25.0	=	 25.0	=>	Good Day
+	3	*	15.0	=	 45.0	=>	Mario
 
 
-			TOTAL AMT is:=95000.0
+			TOTAL AMT is:=70.0

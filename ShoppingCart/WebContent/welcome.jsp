@@ -13,10 +13,18 @@
 <body class="container welcome-body">
 <% 
 	HttpSession sess = request.getSession();
-	if(sess.isNew()) {
+	if((sess.isNew())||(sess.getAttribute("session")==null)||(sess.getAttribute("session")=="logout")) {
 		response.sendRedirect("SingleController?page=Logout");
 	} else {
 		%>
+		
+<%
+	//Back Button Cache Disable
+	response.setHeader("Cache-Control", "no-store");
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Expires", "0");				
+%>
+
 <center>
 	<br><br>
 	<div class="welcome-heading">WELCOME</div><br><br>
@@ -33,7 +41,7 @@
 	<br><br><br>
 	
 	<a class="u-home-link" href="UserHomepage.jsp">Continue To Shopping Centre</a>
-	<h3>OR</h3>
+	<h3 style="color: black;text-decoration: underline;font-family: Imprint MT Shadow; font-size: 22px;">OR</h3>
 	<a class="Logout" href="SingleController?page=Logout">Get-Back</a>
 
 </center>
