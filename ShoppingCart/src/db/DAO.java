@@ -440,7 +440,6 @@ public class DAO {
 			query.setString("username", u1.getUsername());
 			query.setString("pass", u1.getPassword());
 			Object queryResult = query.uniqueResult();
-			System.out.println("validateUser..");
 			return ((User)queryResult);
 		} catch (Exception e) {
 			exceptional();

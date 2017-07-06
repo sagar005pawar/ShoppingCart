@@ -4,8 +4,9 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	1	*	25.0	=	 25.0	=>	Good Day
-	3	*	15.0	=	 45.0	=>	Mario
+	2	*	35000.0	=	 70000.0	=>	Dell
+	2	*	38000.0	=	 76000.0	=>	HP
+	3	*	60000.0	=	 180000.0	=>	Sony
 
 
-			TOTAL AMT is:=70.0
+			TOTAL AMT is:=326000.0

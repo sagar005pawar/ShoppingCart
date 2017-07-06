@@ -96,16 +96,7 @@
 		</div>
 			
 		<div class="msgerr" >
-			<label>
-			<%
-				String str = request.getParameter("msg");
-				if (str == null) {
-					out.println(" ");
-				} else {
-					out.print(str);
-				}
-			%>
-			</label>
+			<label>${msg }</label>
 		</div>
 	</div>	
 </body>

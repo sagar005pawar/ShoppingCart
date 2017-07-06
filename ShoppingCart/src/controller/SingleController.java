@@ -1,20 +1,12 @@
 package controller;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
+import db.*;
+import model.*;
+import rest.*;
+import java.util.*;
+import java.util.stream.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import db.DAO;
-import model.*;
-import rest.ProductForm;
 
 @WebServlet("/SingleController")
 public class SingleController extends HttpServlet {
@@ -43,21 +32,16 @@ public class SingleController extends HttpServlet {
 	  		this.prop.load(in);
 	  		in.close();
 	 	} catch (Exception e) {
-	 		// TODO: handle exception
+	 		System.out.println("Properties file not found at located.. "+e);
 	 	}
      } 
      
 
     public SingleController() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		HttpSession sess = request.getSession();
 		
@@ -98,20 +82,12 @@ public class SingleController extends HttpServlet {
 						}
 						sess.setAttribute("shopping", a3);
 					}
-					
-					RequestDispatcher rd = request.getRequestDispatcher("Pay.jsp");
-					rd.forward(request, response);
-					
-					//response.sendRedirect("Pay.jsp");
-
+					response.sendRedirect("Pay.jsp");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					d1.closeSession();
 					System.out.println("Exception at Replacing Item case" +e);
 					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.forward(request, response);
-
-//					response.sendRedirect("Wel.jsp");
+					rd.include(request, response);
 				}
 				break;
 			}
@@ -142,21 +118,19 @@ public class SingleController extends HttpServlet {
 							break;
 					}
 					sess.setAttribute("asi", a1);				
+					request.setAttribute("type", type);
 					if(from.equals("admin")){
-						RequestDispatcher rd = request.getRequestDispatcher("Products.jsp?type="+type);
+						RequestDispatcher rd = request.getRequestDispatcher("Products.jsp");
 						rd.forward(request, response);
-
-//						response.sendRedirect("Products.jsp?type="+type);									
 					} else{
-//						response.sendRedirect("UserProducts.jsp?type="+type);								
-						RequestDispatcher rd = request.getRequestDispatcher("UserProducts.jsp?type="+type);
+						RequestDispatcher rd = request.getRequestDispatcher("UserProducts.jsp");
 						rd.forward(request, response);
-
 					}
 				} catch (Exception e) {
 					d1.closeSession();
 					System.out.println("Exception at SortList Item case" +e);
-					response.sendRedirect("Wel.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
+					rd.include(request, response);
 				}
 				break;
 			}
@@ -186,16 +160,12 @@ public class SingleController extends HttpServlet {
 					a2=d1.shoppingtable();
 					sess.setAttribute("shopping", a2);						
 
-//					response.sendRedirect("Pay.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("Pay.jsp");
-					rd.forward(request, response);
-
-					
+					response.sendRedirect("Pay.jsp");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println("Exception at ShoppingClear case"+e);
 					d1.closeSession();
-					response.sendRedirect("Wel.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
+					rd.include(request, response);
 				}
 				break;
 			}
@@ -230,15 +200,12 @@ public class SingleController extends HttpServlet {
 							sess.setAttribute("shopping", a2);						
 						}
 					}
-					RequestDispatcher rd = request.getRequestDispatcher("Pay.jsp");
-					rd.forward(request, response);
-
-//					response.sendRedirect("Pay.jsp");
-			
+					response.sendRedirect("Pay.jsp");
 				} catch (SQLException | NullPointerException | NumberFormatException ex) {
 					System.out.println(ex + " sagar pawar");
 					d1.closeSession();
-					response.sendRedirect("Wel.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
+					rd.include(request, response);
 				} catch (Exception e) {
 					response.sendRedirect("error.jsp");
 				}
@@ -260,7 +227,6 @@ public class SingleController extends HttpServlet {
 					  .collect(Collectors.toList());
 					Collections.sort(a1,(h1,h2)->h1.getPrName().compareToIgnoreCase(h2.getPrName()));
 					sess.setAttribute("asi", a1);
-//					response.sendRedirect("UserProducts.jsp?type="+type);
 					request.setAttribute("type", type);
 					RequestDispatcher rd = request.getRequestDispatcher("UserProducts.jsp");
 					rd.forward(request, response);
@@ -268,7 +234,8 @@ public class SingleController extends HttpServlet {
 					// TODO Auto-generated catch block
 					System.out.println("Exception for UserProducts= "+ e1);
 					d1.closeSession();
-					response.sendRedirect("Wel.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
+					rd.include(request, response);
 				}
 				break;
 			}
@@ -280,12 +247,8 @@ public class SingleController extends HttpServlet {
 					Set<String> s1 = new TreeSet<String>();
 					s1.addAll((new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet()));
 					sess.setAttribute("sc", s1);
-//					response.sendRedirect("UserHome.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("UserHome.jsp");
-					rd.forward(request, response);
-
+					response.sendRedirect("UserHome.jsp");
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					System.out.println("SQLException at Home for sections= "+e);
 					response.sendRedirect("SingleController?page=Logout");
 				}
@@ -423,7 +386,6 @@ public class SingleController extends HttpServlet {
 						response.sendRedirect("InsertItem.jsp?msg=Insertion Failure Product= "+prname);
 					}	
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println("Insertion Failure");
 					response.sendRedirect("InsertItem.jsp?msg=Insertion Failure Product= "+prname);
 				}
@@ -444,12 +406,10 @@ public class SingleController extends HttpServlet {
 					request.setAttribute("type", request.getParameter("type"));
 					RequestDispatcher rd = request.getRequestDispatcher("Products.jsp");
 					rd.forward(request, response);
-
-//					response.sendRedirect("Products.jsp?type="+request.getParameter("type"));				
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					System.out.println("SQLException at Home for sections= "+ e1);
-					response.sendRedirect("Wel.jsp");
+					System.out.println("Exception at Home for sections= "+ e1);
+					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
+					rd.include(request, response);
 				}
 				break;
 			}
@@ -461,17 +421,10 @@ public class SingleController extends HttpServlet {
 					Set<String> s1 = new TreeSet<String>();
 					s1.addAll((new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet()));
 					sess.setAttribute("sc", s1);
-//					response.sendRedirect("Home.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
-					rd.forward(request, response);
-
+					response.sendRedirect("Home.jsp");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println("SQLException at DisplayProduct= "+e);
-//					response.sendRedirect("SingleController?page=Logout");
-					RequestDispatcher rd = request.getRequestDispatcher("SingleController?page=Logout");
-					rd.forward(request, response);
-
+					response.sendRedirect("SingleController?page=Logout");
 				}
 				break;
 			}
@@ -506,16 +459,14 @@ public class SingleController extends HttpServlet {
 				try {
 					String user = request.getParameter("usname");
 					String loginpass = request.getParameter("pass");
+					String msg = "Invalid Admin";
 					System.out.println(user+"\t"+loginpass);
 					if (user.equals("admin")&&loginpass.equals("test")) {
 						sess.setAttribute("session", "login");
-//						response.sendRedirect("AdminHomePage.jsp");//jsp	
-						RequestDispatcher rd = request.getRequestDispatcher("AdminHomePage.jsp");
-						rd.forward(request, response);
-
+						response.sendRedirect("AdminHomePage.jsp");//jsp	
 					} else {
-//						response.sendRedirect("AdminLoginPage.jsp?msg=Invalid Admin");
-						RequestDispatcher rd = request.getRequestDispatcher("AdminLoginPage.jsp?msg=Invalid Admin");
+						request.setAttribute("msg", msg);
+						RequestDispatcher rd = request.getRequestDispatcher("AdminLoginPage.jsp");
 						rd.forward(request, response);
 					}					
 					user="";
@@ -532,6 +483,7 @@ public class SingleController extends HttpServlet {
 				try {
 					String user = request.getParameter("usname");
 					String loginpass = request.getParameter("pass");
+					String msg = "Invalid User";
 					System.out.println(user+"\t"+loginpass);
 					u1.setUsername(user);
 					u1.setPassword(loginpass);
@@ -548,20 +500,16 @@ public class SingleController extends HttpServlet {
 						
 						sess.setAttribute("u1", u1);
 						sess.setAttribute("session", "login");
-//						response.sendRedirect("welcome.jsp");//jsp	
-						RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-						rd.forward(request, response);
-
+						response.sendRedirect("welcome.jsp");//jsp	
 					} else {
-						RequestDispatcher rd = request.getRequestDispatcher("Login.jsp?msg=Invalid User");
+						request.setAttribute("msg", msg);
+						RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
 						rd.forward(request, response);
-//						response.sendRedirect("Login.jsp?msg=Invalid User");
 					}
 					user="";
 					loginpass="";					
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.err.println(e);
 					response.sendRedirect("Login.jsp");
 				}		
 				break;
@@ -584,12 +532,12 @@ public class SingleController extends HttpServlet {
 						re.forward(request, response);
 					} else {
 						RequestDispatcher re=request.getRequestDispatcher("Sign-up.jsp");
-						re.forward(request, response);
+						re.include(request, response);
 					}
 				} catch (SQLException e) {
 					System.out.println(e);
 					RequestDispatcher re=request.getRequestDispatcher("Sign-up.jsp");
-					re.forward(request, response);
+					re.include(request, response);
 				}
 				break;
 			}	
@@ -620,10 +568,8 @@ public class SingleController extends HttpServlet {
 					sess.invalidate();
 
 					System.out.println("logout");		
-//					response.sendRedirect("Login.jsp");
-					RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-					rd.forward(request, response);
-				
+					
+					response.sendRedirect("Login.jsp");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					try {
@@ -637,17 +583,12 @@ public class SingleController extends HttpServlet {
 						sess.invalidate();
 
 						System.out.println("Exception= "+e);
-						RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-						rd.forward(request, response);
-//						response.sendRedirect("Login.jsp");
-
+						
+						response.sendRedirect("Login.jsp");
 					} catch (SQLException e1) {
 						sess.setAttribute("session", "logout");
 						System.out.println("Exception= "+e1);
-//						response.sendRedirect("Login.jsp");
-						RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-						rd.forward(request, response);
-
+						response.sendRedirect("Login.jsp");
 					}
 				}				
 				break;
@@ -684,16 +625,11 @@ public class SingleController extends HttpServlet {
 					sess.setAttribute("total", 0.0d);
 
 					System.out.println("logout");		
-//					response.sendRedirect("SingleController?page=Logout");
-					RequestDispatcher rd = request.getRequestDispatcher("SingleController?page=Logout");
-					rd.forward(request, response);
-				
+					response.sendRedirect("SingleController?page=Logout");
 				} catch (Exception e) {
 					System.out.println("Exception= "+e);
-//					response.sendRedirect("SingleController?page=Logout");
-					RequestDispatcher rd = request.getRequestDispatcher("SingleController?page=Logout");
-					rd.forward(request, response);
-				}
+					response.sendRedirect("SingleController?page=Logout");
+				}	
 				break;
 			}
 			
@@ -706,9 +642,6 @@ public class SingleController extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
