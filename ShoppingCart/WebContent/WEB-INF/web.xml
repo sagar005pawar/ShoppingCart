@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>ShoppingCart</display-name>
   <welcome-file-list>
     <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
+  <display-name>ShoppingCart</display-name>
+  
+  <error-page>  
+	  <exception-type>java.lang.Exception</exception-type>  
+	  <location>/error.jsp</location>  
+  </error-page>  
+  
+  <servlet>
+      <servlet-name>control</servlet-name>
+      <servlet-class>controller.SingleController</servlet-class>
+  </servlet>
   
 </web-app>

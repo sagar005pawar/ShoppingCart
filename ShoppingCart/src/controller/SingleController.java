@@ -10,6 +10,7 @@ import java.util.stream.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,8 +70,7 @@ public class SingleController extends HttpServlet {
 					if((T.getTotal())!=0){
 						for (Shopping s2:(ArrayList<Shopping>) sess.getAttribute("shopping")) {
 							if(prname.equals(s2.getPrName())){
-								d1=new DAO();
-								boolean status=d1.ReplaceSingleItem(s2);
+								boolean status=(new DAO()).ReplaceSingleItem(s2);
 								if(status){
 									T.setTotal(T.getTotal()-s2.getAmt());
 									sess.setAttribute("total", T);
@@ -86,8 +86,7 @@ public class SingleController extends HttpServlet {
 				} catch (Exception e) {
 					d1.closeSession();
 					System.out.println("Exception at Replacing Item case" +e);
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				}
 				break;
 			}
@@ -120,17 +119,14 @@ public class SingleController extends HttpServlet {
 					sess.setAttribute("asi", a1);				
 					request.setAttribute("type", type);
 					if(from.equals("admin")){
-						RequestDispatcher rd = request.getRequestDispatcher("Products.jsp");
-						rd.forward(request, response);
+						request.getRequestDispatcher("Products.jsp").forward(request, response);
 					} else{
-						RequestDispatcher rd = request.getRequestDispatcher("UserProducts.jsp");
-						rd.forward(request, response);
+						request.getRequestDispatcher("UserProducts.jsp").forward(request, response);
 					}
 				} catch (Exception e) {
 					d1.closeSession();
 					System.out.println("Exception at SortList Item case" +e);
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				}
 				break;
 			}
@@ -142,30 +138,25 @@ public class SingleController extends HttpServlet {
 					Shopping T = (Shopping) sess.getAttribute("total");
 					if((T.getTotal())!=0){
 						for (Shopping s1:(ArrayList<Shopping>) sess.getAttribute("shopping")) {
-							d1=new DAO();
-							boolean status=d1.ReplaceItems(s1);
+							boolean status = (new DAO()).ReplaceItems(s1);
 							if(status==true){System.out.println("Repalced Item= "+s1);}
 						}
 					}
 					
-					d1=new DAO();
-					d1.ShoppingTruncate();
+					(new DAO()).ShoppingTruncate();
 
-					double total=0.0;
-					T.setTotal(total);
+					T.setTotal(0.0d);
 					sess.setAttribute("total", T);
 
 					a2=new ArrayList<Shopping>();
-					d1=new DAO();
-					a2=d1.shoppingtable();
+					a2=(new DAO()).shoppingtable();
 					sess.setAttribute("shopping", a2);						
 
 					response.sendRedirect("Pay.jsp");
 				} catch (Exception e) {
 					System.out.println("Exception at ShoppingClear case"+e);
 					d1.closeSession();
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				}
 				break;
 			}
@@ -189,13 +180,11 @@ public class SingleController extends HttpServlet {
 							String ft = request.getParameter("scnm[" + i + "]");
 							System.out.println("n= "+n+"\t"+"a= "+a+"\t"+"p= "+p+"\t"+"ft= " + ft + "\t"+"itname= "+itname+"\t"+"u= "+u);
 
-							d1=new DAO();
-							T = d1.Commander(n, a, p, ft, itname, u, T.getTotal());		
+							T = (new DAO()).Commander(n, a, p, ft, itname, u, T.getTotal());		
 							sess.setAttribute("total", T);
 							
 							a2=new ArrayList<Shopping>();
-							d1=new DAO();
-							a2=d1.shoppingtable();
+							a2=(new DAO()).shoppingtable();
 							a2.forEach(System.out::println);;
 							sess.setAttribute("shopping", a2);						
 						}
@@ -204,8 +193,7 @@ public class SingleController extends HttpServlet {
 				} catch (SQLException | NullPointerException | NumberFormatException ex) {
 					System.out.println(ex + " sagar pawar");
 					d1.closeSession();
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				} catch (Exception e) {
 					response.sendRedirect("error.jsp");
 				}
@@ -216,26 +204,15 @@ public class SingleController extends HttpServlet {
 			case "SectionItemsListToUser":
 			{
 				String type = request.getParameter("type");
-				ProductForm prodList = new ProductForm();
 				try {
-					a1 = new ArrayList<Products>();
-					d1=new DAO();
-					//a1=d1.SectonItemsList(type);
-					a1=(ArrayList<Products>) d1.getProducts();
-					a1=(ArrayList<Products>) a1.stream()
-					  .filter(prt->prt.getType().equals(type))
-					  .collect(Collectors.toList());
-					Collections.sort(a1,(h1,h2)->h1.getPrName().compareToIgnoreCase(h2.getPrName()));
-					sess.setAttribute("asi", a1);
+					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getType().equals(type)).sorted((h1, h2)->h1.getPrName().compareToIgnoreCase(h2.getPrName())).collect(Collectors.toList());
+					sess.setAttribute("asi", a5);
 					request.setAttribute("type", type);
-					RequestDispatcher rd = request.getRequestDispatcher("UserProducts.jsp");
-					rd.forward(request, response);
+					request.getRequestDispatcher("UserProducts.jsp").forward(request, response);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					System.out.println("Exception for UserProducts= "+ e1);
 					d1.closeSession();
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				}
 				break;
 			}
@@ -243,9 +220,8 @@ public class SingleController extends HttpServlet {
 			
 			case "DisplayProductSectionsUserHome":
 			{
-				try {	
-					Set<String> s1 = new TreeSet<String>();
-					s1.addAll((new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet()));
+				try {			
+					Set<String> s1 =(new DAO().getProducts()).stream().sorted((f1, f2)->f1.getPrName().compareToIgnoreCase(f2.getPrName())).map(Products::getType).collect(Collectors.toSet());	
 					sess.setAttribute("sc", s1);
 					response.sendRedirect("UserHome.jsp");
 				} catch (SQLException e) {
@@ -265,8 +241,7 @@ public class SingleController extends HttpServlet {
 				String price = request.getParameter("a5");
 				System.out.println("id= "+id+"\t"+"prname= "+prname+"\t"+"type= "+type+"\t"+"qta= "+qta+"\t"+"price= "+price);
 				try {
-					d1 = new DAO();
-					if(d1.ItemUpdating(id,prname,type,qta,price)) {
+					if((new DAO()).ItemUpdating(id,prname,type,qta,price)) {
 						System.out.println("Updated Product");
 						response.sendRedirect("UpdateItem.jsp?msg=Updated Product= "+prname);
 					}else{
@@ -396,20 +371,14 @@ public class SingleController extends HttpServlet {
 			case "SectionItemsList":
 			{
 				try {
-					a1 = new ArrayList<Products>();
-					d1 = new DAO();
-					a1=(ArrayList<Products>) d1.getProducts();
-					a1=(ArrayList<Products>) a1.stream().filter(prt->prt.getType().equals(request.getParameter("type"))).collect(Collectors.toList());
-					Collections.sort(a1);
-					a1.forEach(System.out::println);					
-					sess.setAttribute("asi", a1);
-					request.setAttribute("type", request.getParameter("type"));
-					RequestDispatcher rd = request.getRequestDispatcher("Products.jsp");
-					rd.forward(request, response);
+					String type = request.getParameter("type");
+					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getType().equals(type)).sorted().collect(Collectors.toList());
+					sess.setAttribute("asi", a5);
+					request.setAttribute("type", type);
+					request.getRequestDispatcher("Products.jsp").forward(request, response);
 				} catch (Exception e1) {
 					System.out.println("Exception at Home for sections= "+ e1);
-					RequestDispatcher rd = request.getRequestDispatcher("Wel.jsp");
-					rd.include(request, response);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
 				}
 				break;
 			}
@@ -418,8 +387,7 @@ public class SingleController extends HttpServlet {
 			case "DisplayProductSections":
 			{
 				try {
-					Set<String> s1 = new TreeSet<String>();
-					s1.addAll((new DAO()).getProducts().stream().map(Products::getType).collect(Collectors.toSet()));
+					Set<String> s1 =(new DAO().getProducts()).stream().sorted((f1, f2)->f1.getPrName().compareToIgnoreCase(f2.getPrName())).map(Products::getType).collect(Collectors.toSet());
 					sess.setAttribute("sc", s1);
 					response.sendRedirect("Home.jsp");
 				} catch (Exception e) {
@@ -466,8 +434,7 @@ public class SingleController extends HttpServlet {
 						response.sendRedirect("AdminHomePage.jsp");//jsp	
 					} else {
 						request.setAttribute("msg", msg);
-						RequestDispatcher rd = request.getRequestDispatcher("AdminLoginPage.jsp");
-						rd.forward(request, response);
+						request.getRequestDispatcher("AdminLoginPage.jsp").forward(request, response);
 					}					
 					user="";
 					loginpass="";
@@ -487,24 +454,21 @@ public class SingleController extends HttpServlet {
 					System.out.println(user+"\t"+loginpass);
 					u1.setUsername(user);
 					u1.setPassword(loginpass);
-					d1 = new DAO();	
-					u1 = d1.validateUser(u1);
+					u1 = (new DAO()).validateUser(u1);
 					if(u1!=null) {
 						double total=0.0;
 						Shopping T = new Shopping();	 
 						T.setTotal(total);
 						sess.setAttribute("total", T);
 
-						d1=new DAO();
-						d1.ShoppingTruncate();
+						(new DAO()).ShoppingTruncate();
 						
 						sess.setAttribute("u1", u1);
 						sess.setAttribute("session", "login");
 						response.sendRedirect("welcome.jsp");//jsp	
 					} else {
 						request.setAttribute("msg", msg);
-						RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
-						rd.forward(request, response);
+						request.getRequestDispatcher("Login.jsp").forward(request, response);
 					}
 					user="";
 					loginpass="";					
@@ -525,19 +489,15 @@ public class SingleController extends HttpServlet {
 				u1 = new User(name, password, city);
 			
 				try {
-					d1 = new DAO();
 					if(u1.getUsername()!=null) {
-						u1=d1.SingupDAO(u1);
-						RequestDispatcher re=request.getRequestDispatcher("Login.jsp");
-						re.forward(request, response);
+						u1=(new DAO()).SingupDAO(u1);
+						request.getRequestDispatcher("Login.jsp").forward(request, response);
 					} else {
-						RequestDispatcher re=request.getRequestDispatcher("Sign-up.jsp");
-						re.include(request, response);
+						request.getRequestDispatcher("Sign-up.jsp").include(request, response);
 					}
 				} catch (SQLException e) {
 					System.out.println(e);
-					RequestDispatcher re=request.getRequestDispatcher("Sign-up.jsp");
-					re.include(request, response);
+					request.getRequestDispatcher("Sign-up.jsp").include(request, response);
 				}
 				break;
 			}	
@@ -550,31 +510,32 @@ public class SingleController extends HttpServlet {
 					if((T.getTotal())!=0){
 						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
 						for (Shopping s1 : a2) {
-							d1=new DAO();
-							if(d1.ReplaceItems(s1))
+							if((new DAO()).ReplaceItems(s1))
 								System.out.println("Repalced Item= "+s1);
 							else 
 								System.out.println("NOT Repalced Item= "+s1);
 						}
 					}
 
-					d1=new DAO();
-					d1.ShoppingTruncate();
+					(new DAO()).ShoppingTruncate();
 
 		//			d1.HibernateSQLclose();
 					sess.setAttribute("session", "logout");
 					
+					Cookie c = new Cookie("name", "");
+					c.setMaxAge(0);
+					
 					sess=request.getSession();
 					sess.invalidate();
-
+					
+					Runtime.getRuntime().runFinalization();
+					System.gc();
 					System.out.println("logout");		
 					
 					response.sendRedirect("Login.jsp");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					try {
-						d1=new DAO();
-						d1.ShoppingTruncate();
+						(new DAO()).ShoppingTruncate();
 
 	//					d1.HibernateSQLclose();;
 						sess.setAttribute("session", "logout");
@@ -643,7 +604,6 @@ public class SingleController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 }

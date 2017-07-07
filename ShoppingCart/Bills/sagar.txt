@@ -4,9 +4,7 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	2	*	35000.0	=	 70000.0	=>	Dell
-	2	*	38000.0	=	 76000.0	=>	HP
-	3	*	60000.0	=	 180000.0	=>	Sony
+	4	*	150.0	=	 600.0	=>	Books
 
 
-			TOTAL AMT is:=326000.0
+			TOTAL AMT is:=600.0
