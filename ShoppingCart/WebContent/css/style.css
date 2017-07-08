@@ -1,3 +1,24 @@
+.aLinks {
+	margin-right: 15px;
+	font-size: 18px;
+	color: black;
+}
+.aLinks:HOVER{
+	color: red;
+}
+.aLinks:VISITED {
+	color: black;
+}
+.aLinks:ACTIVE {
+	color: white;
+}
+.searchingList{
+	margin-left: 60%;
+}
+marquee{
+	margin-top: -2px;
+}
+
 .homeHeading {
 	font-family: Algerian;
 	font-size: 40px;
@@ -8,6 +29,7 @@
 .homeHeading.ajaxSearch {display: inline;}
 .ajaxSearch {
 	font-size: 12px;
+	font-weight: 400;
 	float: right;
 	margin-top: 12px;
 	margin-right: 10%;

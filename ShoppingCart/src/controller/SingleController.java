@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 @WebServlet("/SingleController")
 public class SingleController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -60,6 +62,40 @@ public class SingleController extends HttpServlet {
 			User u1= new User();	
 			
 			switch (page) {		
+			
+			case "filterP":
+			{
+				try {
+					String prname = request.getParameter("prname");
+					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getPrName().equalsIgnoreCase(prname)).collect(Collectors.toList());
+					sess.setAttribute("asi", a5);
+					request.setAttribute("type", a5.get(0).getType());
+					request.getRequestDispatcher("UserProducts.jsp").forward(request, response);
+				} catch (Exception e1) {
+					System.out.println("Exception for UserProducts= "+ e1);
+					d1.closeSession();
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
+				}
+
+				break;
+			}
+			
+			case "searchAJAX":
+			{
+				String term = request.getParameter("term");
+				if (term!="" && term!=null) {
+					try {
+		                String searchList = new Gson().toJson((new DAO().getProducts()).stream().filter(p->p.getPrName().toLowerCase().contains(term.toLowerCase())).map(Products::getPrName).limit(4).collect(Collectors.toList()));
+		                response.getWriter().write(searchList);
+					} catch (SQLException e) {
+		                response.getWriter().write(" ");					
+						System.out.println(e);
+					}					
+				} else {
+	                response.getWriter().write(" ");					
+				}
+				break;
+			}
 
 			case "removeItem":
 			{
