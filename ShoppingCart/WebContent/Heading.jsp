@@ -29,7 +29,11 @@
 %>
 
   <center>
-  <font style: face="Algerian"><u><h1>Products</h1></u>
+  	<div class="homeHeading">Products
+  		<input align="right" onkeyup="searchInfo()" ng-model="search" class="ajaxSearch" type='text' id="search" name="search" placeholder="Search"  />
+ 	</div>
+ 	  	<span class="searchingList" id="searchingList">
+  		</span>
   <marquee direction="left" scrollamount="10" width="100%" hieght="20" >
     This is shopping Pr_Detail & these are related sections following below:<br />
     </marquee>

@@ -1,3 +1,5 @@
+
+
 .aLinks {
 	margin-right: 15px;
 	font-size: 18px;
@@ -23,7 +25,7 @@ marquee{
 	font-family: Algerian;
 	font-size: 40px;
 	text-align: center;
-	margin-left: 26%;
+	margin-left: 25%;
 	text-transform: capitalize;
 }
 .homeHeading.ajaxSearch {display: inline;}
@@ -32,11 +34,11 @@ marquee{
 	font-weight: 400;
 	float: right;
 	margin-top: 12px;
-	margin-right: 10%;
+	margin-right: 11%;
 	font-family: AR JULIAN, Arial, Helvetica, sans-serif;
 	text-transform: capitalize;
 	
-	border:1px solid #999999;
+	border:2px solid #999999;
 	width: 25%;
 	height: 40%;
 	color:#000;

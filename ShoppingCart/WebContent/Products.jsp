@@ -45,7 +45,7 @@
 			<td>${p.prName }</td>
 			<td>${p.QA }</td>
 			<td>${p.price }</td>
-			<td><a class="btn btn-lg btn-link" href="UpdateItem.jsp?id=${p.id}
+			<td><a class="btn btn-lg btn-link" target="frame3" href="UpdateItem.jsp?id=${p.id}
 			&prname=${p.prName }&type=${p.type}&qta=${p.QA }
 			&price=${p.price }" target="_parent" >${p.prName }</a></td>
 			
@@ -58,7 +58,7 @@
 </form>
 	
 <form action="AdminHomePage.jsp" target="_parent">
-	<div><a target="_parent" href="InsertItem.jsp?type=${type }" class="btn btn-success" type="submit" name="btn3" align="middle" >Insert Item</a>
+	<div><a target="frame3" href="InsertItem.jsp?type=${type }" class="btn btn-success" type="submit" name="btn3" align="middle" >Insert Item</a>
 	<input class="btn btn-success" type="submit" name="btn3" value="Admin Home" align="middle" /></div>
 </form>
 <br>
@@ -66,12 +66,6 @@
 	<h4><input style="margin-bottom: 7%;" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger" type="submit" name="btn3" value="${type } Section Delete" align="middle" /></h4>
 </form>
 </center>
-<script>
-	var result = confirm("Want to delete?");
-	if (result) {
-		return true;
-	}else{return false;}
-</script>
 
 </body>
 </html>

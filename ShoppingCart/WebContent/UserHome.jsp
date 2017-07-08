@@ -31,7 +31,7 @@
 		<h3><a class="section slink" href="SingleController?page=SectionItemsListToUser&type=${s }" target="frame3">${s }</a></h3>
 	</c:forEach>
 
-	<form action="Pay.jsp" target="frame3" >
+	<form action="Pay.jsp" target="frame3">
 		<h3><input class="btn btn-outline btn-info" type="submit" value="Show AMT"></h3><br>
 	</form>
 

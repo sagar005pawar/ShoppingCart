@@ -23,8 +23,8 @@
 %>
 
 <center>
-	<form action="SingleController?page=ItemInserting" method="post">
-	<br><h2><u>Product Inserting</u></h2><br><br>
+	<form action="SingleController?page=ItemInserting" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<br><h2 style="font-family: Algerian">Product Inserting</h2><br><br><br>
 	<table>
 	<tr>
 	    <th>Type/Section</th>
@@ -42,8 +42,8 @@
 		<td align="center"> <input type="text" name="a2" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" name="a3" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" min=1 name="a4" align="middle" required="required" /></td>
-		<td><input type="submit" name="btn1" value="Insert Item" align="middle" /></td>
-		<td><input type="reset" name="btn1" value="Clear" align="middle" /></td>
+		<td><input type="submit" class="btn btn-outline btn-black" name="btn1" value="Insert Item" align="middle" /></td>
+		<td><input type="reset" class="btn btn-outline btn-black" name="btn1" value="Clear" align="middle" /></td>
 	</tr>
 </table>
 </form>
@@ -55,8 +55,8 @@
 	});
 </script>
 	<br><br><br>
-	<input type="submit" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
-	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+	<a href="Homepage.jsp" class="btn btn-outline btn-success" target="_parent">Display-Products</a>
+	<a href="AdminHomePage.jsp" class="btn btn-outline btn-primary" target="_parent">Admin Home</a>
 
 	<%
 		String msg = null;

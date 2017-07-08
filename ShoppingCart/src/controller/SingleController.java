@@ -70,7 +70,10 @@ public class SingleController extends HttpServlet {
 					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getPrName().equalsIgnoreCase(prname)).collect(Collectors.toList());
 					sess.setAttribute("asi", a5);
 					request.setAttribute("type", a5.get(0).getType());
-					request.getRequestDispatcher("UserProducts.jsp").forward(request, response);
+					if(((User) sess.getAttribute("u1")).getCity().equals("Admin"))
+						request.getRequestDispatcher("Products.jsp").forward(request, response);
+					else
+						request.getRequestDispatcher("UserProducts.jsp").forward(request, response);
 				} catch (Exception e1) {
 					System.out.println("Exception for UserProducts= "+ e1);
 					d1.closeSession();
@@ -466,7 +469,9 @@ public class SingleController extends HttpServlet {
 					String msg = "Invalid Admin";
 					System.out.println(user+"\t"+loginpass);
 					if (user.equals("admin")&&loginpass.equals("test")) {
+						u1 = new User(user, loginpass, "Admin");
 						sess.setAttribute("session", "login");
+						sess.setAttribute("u1", u1);
 						response.sendRedirect("AdminHomePage.jsp");//jsp	
 					} else {
 						request.setAttribute("msg", msg);

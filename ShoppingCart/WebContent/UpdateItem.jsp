@@ -23,14 +23,13 @@
 		String f2=request.getParameter("prname");
 		String f3=request.getParameter("type");
 		String f4=request.getParameter("qta");
-		String f5=request.getParameter("price");
-				
+		String f5=request.getParameter("price");				
 %>
 
 <center>
 	<% if(f1!=null && f2!=null) { %>
-	<form action="SingleController?page=ItemUpdating" method="post">
-	<br><h2><u>Product Updating</u></h2><br><br>
+	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<br><h2 style="font-family: Algerian">Product Updating</h2><br><br>
 	<table style=" text-align: center;">
 	<tr>
 		<th>Pr_ID</th>
@@ -48,18 +47,20 @@
 		<td align="center"> <input id="type" type="text" name="a3" align="middle" value="<%=f3%>" required="required" /></td>
 		<td align="center"> <input type="number" name="a4" align="middle" value=<%=f4%> required="required" /></td>
 		<td align="center"> <input type="number" name="a5" min=1 align="middle" value=<%=f5%> required="required" /></td>
-		<td><input type="submit" name="btn1" value="Update Item" align="middle" /></td>
 	</tr>
 </table>
+<br>
+	<input type="submit" class="btn btn-outline btn-black" name="btn1" value="Update Item" align="middle" />
+
 </form>
 
 	<br><br><br>
-	<input type="button" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
-	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+	<a href="Homepage.jsp" class="btn btn-outline btn-success" target="_parent">Display-Products</a>
+	<a href="AdminHomePage.jsp" class="btn btn-outline btn-primary" target="_parent">Admin Home</a>
 	
 	<%} else { %>
 	
-	<form action="SingleController?page=ItemUpdating" method="post">
+	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
 	<br><h2><u>Product Updating</u></h2><br><br>
 	<table style=" text-align: center;">
 	<tr>
@@ -75,17 +76,21 @@
 		<td align="center"> <input type="text" name="a3" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" name="a4" align="middle" required="required" /></td>
 		<td align="center"> <input type="number" name="a5" min=1 align="middle" required="required" /></td>
-		<td><input type="submit" name="btn1" value="Update Item" align="middle" /></td>
-		<td><input type="reset" name="btn1" value="Clear" align="middle" /></td>
+		<td><input type="submit" class="btn btn-outline btn-black" name="btn1" value="Update Item" align="middle" /></td>
+		<td><input type="reset" class="btn btn-outline btn-black" name="btn1" value="Clear" align="middle" /></td>
 	</tr>	
 	
 </table>
 </form>
 
 	<br><br><br>
-	<input type="button" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
-	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+	<a href="Homepage.jsp" class="btn btn-outline btn-success" target="_parent">Display-Products</a>
+	<a href="AdminHomePage.jsp" class="btn btn-outline btn-primary" target="_parent">Admin Home</a>
 
+<!-- 	
+	<input type="button" name="btn1" target="_parent" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
+	<input type="button" name="btn3" target="_parent" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+ -->
 	<% } %>
 	
 	<%

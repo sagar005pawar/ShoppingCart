@@ -22,7 +22,7 @@
 %>
 
 <center>
-	<br><h2><u>Product Deleting</u></h2><br><br>
+	<br><h2 style="font-family: Algerian">Product Deleting</h2><br><br><br>
 
 	<form action="SingleController?page=ItemDeletion" method="post">
 	<table>
@@ -45,8 +45,8 @@
 	</form>
 	
 	<br><br><br>
-	<input type="submit" name="btn1" value="Display-Products" align="middle" onclick='window.location.href="Homepage.jsp"' />
-	<input type="button" name="btn3" value="Admin Home" align="middle" onclick='window.location.href="AdminHomePage.jsp"'>
+	<a href="Homepage.jsp" class="btn btn-outline btn-success" target="_parent">Display-Products</a>
+	<a href="AdminHomePage.jsp" class="btn btn-outline btn-primary" target="_parent">Admin Home</a>
 	<%
 		String msg = null;
 		msg=request.getParameter("msg");

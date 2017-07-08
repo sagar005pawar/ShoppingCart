@@ -59,23 +59,18 @@
 		<h3 style="font-family: Imprint MT Shadow;"><u>TOTAL AMT is</u>:= ${total.total}</h3>
 	<h5>=============================================</h5>
 
+    	<br>
+
 		<c:if test="${total.total != 0}">
-	        <form action="SingleController?page=Print-Bill" method="post" target="_parent">
-	 	    	<br><input onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-outline btn-black" type="submit" value="PAY-BILL/PRINT" >    
-			</form>
+ 	    	<a href="SingleController?page=Print-Bill" target="_parent" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-outline btn-black">
+	 	    	<span class="glyphicon glyphicon-print"></span> PAY-BILL
+ 	    	</a>
 		</c:if>		
 		
 		<form action="UserHomepage.jsp" method="post" target="_parent">
  	    	<br><input class="btn btn-outline btn-black"  type="submit" value=" BACK " /><br><br>     
 		</form>
 </center>
-
-<script>
-	var result = confirm("Want to delete?");
-	if (result) {
-		return true;
-	}else{return false;}
-</script>
 
 </body>
 </html>
