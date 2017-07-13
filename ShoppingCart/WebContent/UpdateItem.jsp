@@ -28,7 +28,7 @@
 
 <center>
 	<% if(f1!=null && f2!=null) { %>
-	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to Update <%=f2 %> item?');">
 	<br><h2 style="font-family: Algerian">Product Updating</h2><br><br>
 	<table style=" text-align: center;">
 	<tr>
@@ -60,7 +60,7 @@
 	
 	<%} else { %>
 	
-	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<form action="SingleController?page=ItemUpdating" method="post" onsubmit="return confirm('Are you sure you want to Upadate this item?');">
 	<br><h2><u>Product Updating</u></h2><br><br>
 	<table style=" text-align: center;">
 	<tr>

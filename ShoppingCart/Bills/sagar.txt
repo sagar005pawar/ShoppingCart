@@ -4,7 +4,8 @@
 
 	QtN	*	Price	=	Amount	=>	Item
 
-	4	*	150.0	=	 600.0	=>	Books
+	3	*	25.0	=	 75.0	=>	Good Day
+	3	*	10.0	=	 30.0	=>	Monaco
 
 
-			TOTAL AMT is:=600.0
+			TOTAL AMT is:=105.0

@@ -67,7 +67,7 @@ public class SingleController extends HttpServlet {
 			{
 				try {
 					String prname = request.getParameter("prname");
-					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getPrName().equalsIgnoreCase(prname)).collect(Collectors.toList());
+					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getPrName().equalsIgnoreCase(prname)).distinct().collect(Collectors.toList());
 					sess.setAttribute("asi", a5);
 					request.setAttribute("type", a5.get(0).getType());
 					if(((User) sess.getAttribute("u1")).getCity().equals("Admin"))
@@ -88,7 +88,7 @@ public class SingleController extends HttpServlet {
 				String term = request.getParameter("term");
 				if (term!="" && term!=null) {
 					try {
-		                String searchList = new Gson().toJson((new DAO().getProducts()).stream().filter(p->p.getPrName().toLowerCase().contains(term.toLowerCase())).map(Products::getPrName).limit(4).collect(Collectors.toList()));
+		                String searchList = new Gson().toJson((new DAO().getProducts()).stream().filter(p->p.getPrName().toLowerCase().contains(term.toLowerCase())).map(Products::getPrName).distinct().limit(4).collect(Collectors.toList()));
 		                response.getWriter().write(searchList);
 					} catch (SQLException e) {
 		                response.getWriter().write(" ");					
@@ -260,10 +260,9 @@ public class SingleController extends HttpServlet {
 			case "DisplayProductSectionsUserHome":
 			{
 				try {			
-					Set<String> s1 =(new DAO().getProducts()).stream().sorted((f1, f2)->f1.getPrName().compareToIgnoreCase(f2.getPrName())).map(Products::getType).collect(Collectors.toSet());	
-					sess.setAttribute("sc", s1);
+					sess.setAttribute("sc", (new DAO().getProducts()).stream().sorted((f1, f2)->f1.getType().toLowerCase().compareTo(f2.getType().toLowerCase())).map(Products::getType).distinct().collect(Collectors.toList()));
 					response.sendRedirect("UserHome.jsp");
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					System.out.println("SQLException at Home for sections= "+e);
 					response.sendRedirect("SingleController?page=Logout");
 				}
@@ -288,7 +287,6 @@ public class SingleController extends HttpServlet {
 						response.sendRedirect("UpdateItem.jsp?msg=Updation Failure Product= "+prname);
 					}																	
 				} catch (Exception e) {
-					// TODO: handle exception
 					System.out.println("Updation Failure");
 					response.sendRedirect("UpdateItem.jsp?msg=Updation Failure Product= "+prname);					
 				}
@@ -371,7 +369,6 @@ public class SingleController extends HttpServlet {
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 					}						
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println("Deletion Failure");
 					response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 				}
@@ -426,8 +423,7 @@ public class SingleController extends HttpServlet {
 			case "DisplayProductSections":
 			{
 				try {
-					Set<String> s1 =(new DAO().getProducts()).stream().sorted((f1, f2)->f1.getPrName().compareToIgnoreCase(f2.getPrName())).map(Products::getType).collect(Collectors.toSet());
-					sess.setAttribute("sc", s1);
+					sess.setAttribute("sc", (new DAO().getProducts()).stream().sorted((f1, f2)->f1.getType().toLowerCase().compareTo(f2.getType().toLowerCase())).map(Products::getType).distinct().collect(Collectors.toList()));
 					response.sendRedirect("Home.jsp");
 				} catch (Exception e) {
 					System.out.println("SQLException at DisplayProduct= "+e);
@@ -456,7 +452,6 @@ public class SingleController extends HttpServlet {
 
 					}
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}	
 			}
@@ -569,7 +564,6 @@ public class SingleController extends HttpServlet {
 					sess=request.getSession();
 					sess.invalidate();
 					
-					Runtime.getRuntime().runFinalization();
 					System.gc();
 					System.out.println("logout");		
 					
@@ -577,18 +571,18 @@ public class SingleController extends HttpServlet {
 				} catch (Exception e) {
 					try {
 						(new DAO()).ShoppingTruncate();
-
 	//					d1.HibernateSQLclose();;
 						sess.setAttribute("session", "logout");
-
 						sess=request.getSession();
 						sess.invalidate();
-
-						System.out.println("Exception= "+e);
-						
+						System.gc();
+						System.out.println("logout");		
+						System.out.println("Exception= "+e);						
 						response.sendRedirect("Login.jsp");
 					} catch (SQLException e1) {
 						sess.setAttribute("session", "logout");
+						System.gc();
+						System.out.println("logout");		
 						System.out.println("Exception= "+e1);
 						response.sendRedirect("Login.jsp");
 					}

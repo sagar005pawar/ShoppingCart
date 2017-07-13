@@ -62,7 +62,7 @@
     	<br>
 
 		<c:if test="${total.total != 0}">
- 	    	<a href="SingleController?page=Print-Bill" target="_parent" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-outline btn-black">
+ 	    	<a href="SingleController?page=Print-Bill" target="_parent" onclick="return confirm('Are you sure you want to Print-Bill & DONE Shopping?');" class="btn btn-outline btn-black">
 	 	    	<span class="glyphicon glyphicon-print"></span> PAY-BILL
  	    	</a>
 		</c:if>		

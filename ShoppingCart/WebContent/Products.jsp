@@ -49,7 +49,7 @@
 			&prname=${p.prName }&type=${p.type}&qta=${p.QA }
 			&price=${p.price }" target="_parent" >${p.prName }</a></td>
 			
-			<td><a onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-outline btn-danger" href="SingleController?page=LinkItemDeletion&id=${p.id}
+			<td><a onclick="return confirm('Are you sure you want to delete ${p.prName } item?');" class="btn btn-outline btn-danger" href="SingleController?page=LinkItemDeletion&id=${p.id}
 			&prname=${p.prName }&type=${p.type}&qta=${p.QA }
 			&price=${p.price }" target="_parent" >${p.prName }</a></td>
 		</tr>
@@ -63,7 +63,7 @@
 </form>
 <br>
 <form action="SingleController?page=LinkSectionDeletion&type=${type }" method="post" target="_parent">
-	<h4><input style="margin-bottom: 7%;" onclick="return confirm('Are you sure you want to delete this item?');" class="btn btn-danger" type="submit" name="btn3" value="${type } Section Delete" align="middle" /></h4>
+	<h4><input style="margin-bottom: 7%;" onclick="return confirm('Are you sure you want to delete ${type } section?');" class="btn btn-danger" type="submit" name="btn3" value="${type } Section Delete" align="middle" /></h4>
 </form>
 </center>
 

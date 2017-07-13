@@ -47,7 +47,7 @@ public class DAO {
 	
 	public void HibernateSQLclose() throws SQLException
 	{
-			exceptional();
+		this.exceptional();
 	}	
 
 	public boolean ReplaceSingleItem(Shopping s1)
@@ -70,10 +70,10 @@ public class DAO {
 			  b1=true;
 			System.out.println("Replace Item..");
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return b1;
 	}
@@ -91,10 +91,10 @@ public class DAO {
 			}
 			System.out.println("Truncate");
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 	}
 	
@@ -110,10 +110,10 @@ public class DAO {
 			a1 = (ArrayList<Shopping>) queryResult.list(); 
 			System.out.println("Show Shopping");	
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return a1;
 	}
@@ -193,15 +193,13 @@ public class DAO {
 				T.setTotal(total);
 				return T;
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return T;	
 	}	
-	
-	
 	
 	
 	public String ItemInserting(String prname,String type,int qta,String price) throws SQLException {
@@ -226,8 +224,8 @@ public class DAO {
 				status="UPDATE";
 				System.out.println(status);							
 			} else {
-				ConnectionPoolManager = new ConnectionPoolManager();
-				con = ConnectionPoolManager.getConnectionFromPool();
+				this.ConnectionPoolManager = new ConnectionPoolManager();
+				this.con = ConnectionPoolManager.getConnectionFromPool();
 
 				System.out.println("Connected to DB");
 				
@@ -247,10 +245,10 @@ public class DAO {
 				System.out.println(status);			
 			}
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return status;
 	}
@@ -272,10 +270,10 @@ public class DAO {
 			status=true;
 			System.out.println("Updated..");
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return status;
 	}
@@ -296,10 +294,10 @@ public class DAO {
 			  System.out.println("Deleted Item...");
 			  status=true;
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return status;
 	}
@@ -322,10 +320,10 @@ public class DAO {
 			status=true;			
 			System.out.println("Deleted Section...");
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return status;
 	}
@@ -340,10 +338,10 @@ public class DAO {
 			this.session.beginTransaction();
 			a1.addAll((ArrayList<Products>)(this.session.createQuery("from Products group by type order by id")).list());
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return a1;
 	}
@@ -357,10 +355,10 @@ public class DAO {
 			this.session.update(p1);
 			status=true;				
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return status;	
 	}
@@ -377,7 +375,7 @@ public class DAO {
 				}
 			}
 		}
-		con.close();
+		this.con.close();
 		return status;	
 	}	
 	
@@ -390,10 +388,10 @@ public class DAO {
 			queryResult.setString("type", type);
 			a1 = (ArrayList<Products>) queryResult.list(); 			
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}				
 		return a1;
 	}	
@@ -408,10 +406,10 @@ public class DAO {
 			queryResult.setString("type", type);
 			a1 = (ArrayList<Products>) queryResult.list(); 			
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return a1;
 	}	
@@ -423,10 +421,10 @@ public class DAO {
 			this.session.beginTransaction();
 			this.session.saveOrUpdate(u1);;			
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return u1;
 	}
@@ -442,10 +440,10 @@ public class DAO {
 			Object queryResult = query.uniqueResult();
 			return ((User)queryResult);
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return u1;
 	}
@@ -459,10 +457,10 @@ public class DAO {
 			org.hibernate.Query queryResult = this.session.createQuery("from Products");
 			a1 = (ArrayList<Products>) queryResult.list(); 
 		} catch (Exception e) {
-			exceptional();
+			this.exceptional();
 			System.err.println(e);
 		} finally {
-			closeSession();
+			this.closeSession();
 		}		
 		return a1;		
 	}

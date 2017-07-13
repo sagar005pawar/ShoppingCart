@@ -23,7 +23,7 @@
 %>
 
 <center>
-	<form action="SingleController?page=ItemInserting" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<form action="SingleController?page=ItemInserting" method="post" onsubmit="return confirm('Are you sure you want to Insert the item?');">
 	<br><h2 style="font-family: Algerian">Product Inserting</h2><br><br><br>
 	<table>
 	<tr>
