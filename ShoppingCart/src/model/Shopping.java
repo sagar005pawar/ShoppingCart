@@ -13,7 +13,7 @@ public class Shopping implements Serializable, Cloneable
 	
 	private int Id;	
 	private int QA;
-	private double total;
+	private static double total;
 	
 	public Object clone() throws CloneNotSupportedException{
 		return super.clone();

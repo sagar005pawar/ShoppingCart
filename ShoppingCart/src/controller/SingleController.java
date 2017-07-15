@@ -56,8 +56,8 @@ public class SingleController extends HttpServlet {
 			String page = request.getParameter("page");
 			System.out.println("page= " + page);
 			DAO d1 = null;
-			ArrayList<Products> a1;			
-			ArrayList<Shopping> a2;			
+//			ArrayList<Products> a1;			
+//			ArrayList<Shopping> a2;			
 
 			User u1= new User();	
 			
@@ -137,7 +137,7 @@ public class SingleController extends HttpServlet {
 					String var = request.getParameter("var");
 					String from = request.getParameter("from");
 					System.out.println("Sorted By " + var+" "+type+" "+from);
-					a1 = new ArrayList<Products>();
+					List<Products> a1 = new ArrayList<>();
 					a1 = (ArrayList<Products>) sess.getAttribute("asi");
 					switch (var) {
 						case "id":
@@ -187,8 +187,8 @@ public class SingleController extends HttpServlet {
 					T.setTotal(0.0d);
 					sess.setAttribute("total", T);
 
-					a2=new ArrayList<Shopping>();
-					a2=(new DAO()).shoppingtable();
+					List<Shopping> a2 = new ArrayList<>();
+					a2 = (new DAO()).shoppingtable();
 					sess.setAttribute("shopping", a2);						
 
 					response.sendRedirect("Pay.jsp");
@@ -222,7 +222,7 @@ public class SingleController extends HttpServlet {
 							T = (new DAO()).Commander(n, a, p, ft, itname, u, T.getTotal());		
 							sess.setAttribute("total", T);
 							
-							a2=new ArrayList<Shopping>();
+							List<Shopping> a2=new ArrayList<>();
 							a2=(new DAO()).shoppingtable();
 							a2.forEach(System.out::println);;
 							sess.setAttribute("shopping", a2);						
@@ -268,7 +268,34 @@ public class SingleController extends HttpServlet {
 				}
 				break;
 			}
+
 			
+			case "SectionItemsList":
+			{
+				try {
+					sess.setAttribute("asi", (new DAO().getProducts()).stream().filter(p->p.getType().toLowerCase().equals((request.getParameter("type")).toLowerCase())).sorted().collect(Collectors.toList()));
+					request.setAttribute("type", request.getParameter("type"));
+					request.getRequestDispatcher("Products.jsp").forward(request, response);
+				} catch (Exception e1) {
+					System.out.println("Exception at Home for sections= "+ e1);
+					request.getRequestDispatcher("Wel.jsp").include(request, response);
+				}
+				break;
+			}
+
+			
+			case "DisplayProductSections":
+			{
+				try {
+					sess.setAttribute("sc", (new DAO().getProducts()).stream().sorted((f1, f2)->f1.getType().toLowerCase().compareTo(f2.getType().toLowerCase())).map(Products::getType).distinct().collect(Collectors.toList()));
+					response.sendRedirect("Home.jsp");
+				} catch (Exception e) {
+					System.out.println("SQLException at DisplayProduct= "+e);
+					response.sendRedirect("SingleController?page=Logout");
+				}
+				break;
+			}
+
 			
 			case "ItemUpdating":
 			{
@@ -347,7 +374,6 @@ public class SingleController extends HttpServlet {
 						response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 					}						
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					System.out.println("Deletion Failure");
 					response.sendRedirect("DeleteItem.jsp?msg=Deletion Failure Section= "+type);
 				}
@@ -404,34 +430,6 @@ public class SingleController extends HttpServlet {
 			}
 							
 			
-			case "SectionItemsList":
-			{
-				try {
-					String type = request.getParameter("type");
-					List<Products> a5 = (new DAO().getProducts()).stream().filter(p->p.getType().equals(type)).sorted().collect(Collectors.toList());
-					sess.setAttribute("asi", a5);
-					request.setAttribute("type", type);
-					request.getRequestDispatcher("Products.jsp").forward(request, response);
-				} catch (Exception e1) {
-					System.out.println("Exception at Home for sections= "+ e1);
-					request.getRequestDispatcher("Wel.jsp").include(request, response);
-				}
-				break;
-			}
-
-			
-			case "DisplayProductSections":
-			{
-				try {
-					sess.setAttribute("sc", (new DAO().getProducts()).stream().sorted((f1, f2)->f1.getType().toLowerCase().compareTo(f2.getType().toLowerCase())).map(Products::getType).distinct().collect(Collectors.toList()));
-					response.sendRedirect("Home.jsp");
-				} catch (Exception e) {
-					System.out.println("SQLException at DisplayProduct= "+e);
-					response.sendRedirect("SingleController?page=Logout");
-				}
-				break;
-			}
-			
 			case "AJAX":
 			{
 				String user = request.getParameter("usname");
@@ -462,7 +460,7 @@ public class SingleController extends HttpServlet {
 					String user = request.getParameter("usname");
 					String loginpass = request.getParameter("pass");
 					String msg = "Invalid Admin";
-					System.out.println(user+"\t"+loginpass);
+					System.out.println(user + "\t" + loginpass);
 					if (user.equals("admin")&&loginpass.equals("test")) {
 						u1 = new User(user, loginpass, "Admin");
 						sess.setAttribute("session", "login");
@@ -544,7 +542,7 @@ public class SingleController extends HttpServlet {
 				try {			
 					Shopping T = (Shopping) sess.getAttribute("total");
 					if((T.getTotal())!=0){
-						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
+						List<Shopping> a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
 						for (Shopping s1 : a2) {
 							if((new DAO()).ReplaceItems(s1))
 								System.out.println("Repalced Item= "+s1);
@@ -608,7 +606,7 @@ public class SingleController extends HttpServlet {
 						Pwb.println("\tNot Purchased any thing (0:-Item purchase)\n\n");
 						Pwb.println("\t\t\tTOTAL AMT is:=" + T.getTotal());
 					} else {
-						a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
+						List<Shopping> a2=(ArrayList<Shopping>) sess.getAttribute("shopping");
 						Pwb.println("\n\t\t\t\tShopping-Cart\n\n");
 						Pwb.println("\tQtN\t*\tPrice\t=\tAmount\t=>\tItem\n");						
 						for (Shopping s: a2) {
