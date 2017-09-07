@@ -32,24 +32,28 @@
 	</c:if>
 	
 	<c:if test="${total.total != 0.0}">
-		<table class="payTable">
-			<tr style="font-size: 19px;">
-				<th><u>Purchase</u></th>
-				<th><u>Quantity</u></th>
-				<th><u>Price</u></th>
-				<th><u>Amount</u></th>
-			</tr>		
-			<tr></tr><tr></tr>	
-			
-			<c:forEach var="s" items="${shopping}" varStatus="status">
-			<tr style="font-size: 17px;">
-				<td>${s.prName}</td>
-				<td>${s.QN}</td>
-				<td>${s.price}</td>
-				<td>${s.amt}</td>
-				<td><a href="SingleController?page=removeItem&prname=${s.prName}" > Remove </a></td>
-			</tr>
-			</c:forEach>			
+		<a id="link" class="btn btn-link" href="#">Show/Hide</a>
+		<table class="table-hover table-responsive payTable">
+			<thead>
+				<tr style="font-size: 19px;">
+					<th><u>Purchase</u></th>
+					<th><u>Quantity</u></th>
+					<th><u>Price</u></th>
+					<th><u>Amount</u></th>
+				</tr>					
+			</thead>
+			<tbody>
+				<tr></tr><tr></tr>	
+				<c:forEach var="s" items="${shopping}" varStatus="status">
+				<tr style="font-size: 17px;">
+					<td>${s.prName}</td>
+					<td>${s.QN}</td>
+					<td>${s.price}</td>
+					<td>${s.amt}</td>
+					<td><a href="SingleController?page=removeItem&prname=${s.prName}" > Remove </a></td>
+				</tr>
+				</c:forEach>						
+			</tbody>
 		</table>
 	</c:if>	
 	
@@ -73,5 +77,14 @@
 		<input class="btn btn-outline btn-black" type="submit" align="middle" value="Cancel / Close" >
 	</form>
 </center>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#link").click(function() {
+			$("table").slideToggle("slow");
+		});
+	});
+</script>
+
 </body>
 </html>

@@ -28,7 +28,7 @@
 		${type } Items
 	</div>
 	<form action="SingleController?page=Commander" method="post">
-	<table class="productsTable" frame="hsides">
+	<table class="table-hover table-responsive productsTable" frame="hsides">
 
 		<tr style="font-size: 20px;">
 			<th><a href="SingleController?page=sortList&var=id&from=admin&type=${type }">Product-ID</a></th>

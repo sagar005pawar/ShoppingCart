@@ -224,7 +224,7 @@ public class SingleController extends HttpServlet {
 							
 							List<Shopping> a2=new ArrayList<>();
 							a2=(new DAO()).shoppingtable();
-							a2.forEach(System.out::println);;
+							a2.forEach(System.out::println);
 							sess.setAttribute("shopping", a2);						
 						}
 					}
@@ -264,7 +264,7 @@ public class SingleController extends HttpServlet {
 					response.sendRedirect("UserHome.jsp");
 				} catch (Exception e) {
 					System.out.println("SQLException at Home for sections= "+e);
-					response.sendRedirect("SingleController?page=Logout");
+					response.sendRedirect("SingleController?page=logout");
 				}
 				break;
 			}
@@ -290,7 +290,7 @@ public class SingleController extends HttpServlet {
 					sess.setAttribute("sc", (new DAO().getProducts()).stream().sorted((f1, f2)->f1.getType().toLowerCase().compareTo(f2.getType().toLowerCase())).map(Products::getType).distinct().collect(Collectors.toList()));
 					response.sendRedirect("Home.jsp");
 				} catch (Exception e) {
-					System.out.println("SQLException at DisplayProduct= "+e);
+					System.out.println("Exception at DisplayProduct= "+e);
 					response.sendRedirect("SingleController?page=Logout");
 				}
 				break;

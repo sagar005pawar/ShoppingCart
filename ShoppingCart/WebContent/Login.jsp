@@ -1,6 +1,4 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
-<%@ page errorPage="error.jsp" session="false" %>
+<%@ page session="false" import="java.util.*" errorPage="error.jsp" import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +7,7 @@
   <script type="text/javascript" src="js/modernizr.custom.js"></script>
   <script type="text/javascript" src="js/move-top.js"></script>
   <script type="text/javascript" src="js/easing.js"></script>	
-	<jsp:include page="links.jsp" />
+  <jsp:include page="links.jsp" />
 
    <script type="text/javascript">
 	function validation() {
@@ -32,7 +30,7 @@
 		}
 		return true;
 	}
-</script> 
+   </script> 
 
 
 </head>
@@ -83,6 +81,7 @@
 				<div class="form-group">
 					<%Date date = new Date();SimpleDateFormat ft= new SimpleDateFormat("E  dd-MM-yyyy");%>
 					<label class="datecn"><%=ft.format(date) %></label>
+					<span class="datecn" id="txt"></span>
 				</div>
 				<div class="form-group">
 	           		<div class="col-sm-offset-2 col-sm-8">
@@ -102,3 +101,4 @@
 	</div>	
 </body>
 </html>
+

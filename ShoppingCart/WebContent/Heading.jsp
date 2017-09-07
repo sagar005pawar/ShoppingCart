@@ -14,30 +14,24 @@
 </head>
 <body class="container-fluid heading">
 <% 
-	HttpSession sess = request.getSession();
-
-	if(sess.isNew()) {
-		response.sendRedirect("SingleController?page=Logout");
-	}else{
-		//background="Images/sbad.jpg"
-%>
-<%
 	//Back Button Cache Disable
 	response.setHeader("Cache-Control", "no-store");
 	response.setHeader("Pragma", "no-cache");
 	response.setHeader("Expires", "0");				
+
+	if(session.isNew()) {
+		response.sendRedirect("SingleController?page=Logout");
+	}
 %>
 
-  <center>
-  	<div class="homeHeading">Products
-  		<input align="right" onkeyup="searchInfo()" ng-model="search" class="ajaxSearch" type='text' id="search" name="search" placeholder="Search"  />
- 	</div>
- 	  	<span class="searchingList" id="searchingList">
-  		</span>
-  <marquee direction="left" scrollamount="10" width="100%" hieght="20" >
-    This is shopping Pr_Detail & these are related sections following below:<br />
-    </marquee>
+	<center>
+	  	<div class="homeHeading">Products
+	  		<input align="right" onkeyup="searchInfo()" ng-model="search" class="ajaxSearch" type='text' id="search" name="search" placeholder="Search"  />
+	 	</div>
+ 	  	<span class="searchingList" id="searchingList"></span>
+		<marquee direction="left" scrollamount="10" width="100%" hieght="20" >
+    		This is shopping Pr_Detail & these are related sections following below:<br />
+    	</marquee>
     </center>
-<%} %>    
 </body>
 </html>

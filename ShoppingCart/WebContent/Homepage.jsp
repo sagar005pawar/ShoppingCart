@@ -12,9 +12,8 @@
 
 	if((sess.isNew())||(sess.getAttribute("session")==null)||(sess.getAttribute("session")=="logout")) {
 		response.sendRedirect("SingleController?page=Logout");
-	}else{
-%>
-<%
+	}
+	
 	//Back Button Cache Disable
 	response.setHeader("Cache-Control", "no-store");
 	response.setHeader("Pragma", "no-cache");
@@ -30,5 +29,4 @@
     </frameset>
         <frame src="border.jsp">
 </frameset>
-<%}%>
 </html>

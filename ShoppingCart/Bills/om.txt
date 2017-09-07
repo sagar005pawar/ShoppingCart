@@ -1,0 +1,14 @@
+
+				Shopping-Cart
+
+
+	QtN	*	Price	=	Amount	=>	Item
+
+	1	*	25.0	=	 25.0	=>	Good Day
+	1	*	25.0	=	 25.0	=>	KrakJack
+	1	*	15.0	=	 15.0	=>	Mario
+	1	*	10.0	=	 10.0	=>	Monaco
+	1	*	10.0	=	 10.0	=>	Parle-G
+
+
+			TOTAL AMT is:=85.0

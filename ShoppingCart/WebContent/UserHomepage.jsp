@@ -4,19 +4,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>HOMEPAGE</title>
-  <link rel="stylesheet" href="css/bootstrap.min.css"/>
-  <script type="text/javascript" src="javascript/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="css/style.css">
+	<jsp:include page="links.jsp" />
 </head>
 <% 
 	HttpSession sess = request.getSession();
 
 	if((sess.isNew())||(sess.getAttribute("session")==null)||(sess.getAttribute("session")=="logout")) {
 		response.sendRedirect("SingleController?page=Logout");
-	}else{
-%>
-<%
+	}
+	
 	//Back Button Cache Disable
 	response.setHeader("Cache-Control", "no-store");
 	response.setHeader("Pragma", "no-cache");
@@ -32,5 +28,6 @@
     </frameset>
         <frame src="border.jsp">
 </frameset>
-<%} %>
+
+
 </html>
